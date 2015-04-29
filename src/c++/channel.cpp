@@ -53,11 +53,11 @@ bool Miffles::is_string( const std::string &val )
 
 bool Miffles::is_num( const std::string &val )
 {
-    for ( auto ch = val.begin(); ch != val.end(); ++ch ) {
-        if ( (*ch) == '.' )       continue;
-        if ( (*ch) == '+' )       continue;
-        if ( (*ch) == '-' )       continue;
-        if ( ::isdigit( (*ch) ) ) continue;
+    for ( auto ch : val ) {
+        if ( ch == '.' )       continue;
+        if ( ch == '+' )       continue;
+        if ( ch == '-' )       continue;
+        if ( ::isdigit( ch ) ) continue;
         return false;
     }
     return true;

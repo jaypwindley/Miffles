@@ -73,10 +73,9 @@ Miffles::Frame::on_draw( const ::Cairo::RefPtr<::Cairo::Context> &cr ) {
     // Now tell each Midget, in order, to draw itself with the
     // transformed context.
     //
-    for ( auto i = m_midgets->begin();
-          i != m_midgets->end(); ++i ) {
+    for ( auto i : *m_midgets ) {
         cr->save();
-        (*i)->draw( cr );
+        i->draw( cr );
         cr->restore();
     }
 }

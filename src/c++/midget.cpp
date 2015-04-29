@@ -22,8 +22,8 @@ Miffles::Midget_List::iterator
 Miffles::Midget_List::find( std::string &name )
 {
     Miffles::Midget_List::iterator i;
-    for ( i = begin(); i != end(); ++i ) {
-        if ( (*i)->m_name == name ) break;
+    for ( auto i : *this ) {
+        if ( i->m_name == name ) break;
     }
     return i;
 }

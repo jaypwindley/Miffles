@@ -53,22 +53,19 @@ void Miffles::Input_Demultiplexer::dispatch( std::string input )
         break;
     }
 
-    for ( auto i = m_channels[ tokens[ 0 ] ].begin();
-          i != m_channels[ tokens[ 0 ] ].end();
-          ++i ) {
-
+    for ( auto i : m_channels[ tokens[ 0 ] ] ) {
         // XXX This really isn't an elegant way to be polymorphic.  I
         // feel dirty.  Fix this.
         //
         switch( t ) {
         case Miffles::Type::NUM:
-            (*i)->set( val_double );
+            i->set( val_double );
             break;
         case Miffles::Type::BOOL:
-            (*i)->set( val_bool );
+            i->set( val_bool );
             break;
         case Miffles::Type::STRING:
-            (*i)->set( val_str );
+            i->set( val_str );
             break;
         }
 

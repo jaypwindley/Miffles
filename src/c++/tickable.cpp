@@ -35,7 +35,7 @@ void Miffles::Tickable_Czar::add( Miffles::Tickable *t, bool defer )
 void Miffles::Tickable_Czar::link_timers( void )
 {
     // The iterator is decomposed into a tuple ( Hz, Tickable *).
-    for ( auto i = begin(); i != end(); ++i ) {
+    for ( auto i : *this ) {
 
         // This is how Glib abstracts callables.  Be sure to pass
         // an explicit "this".
@@ -43,29 +43,27 @@ void Miffles::Tickable_Czar::link_timers( void )
         auto slot =
             sigc::bind( sigc::mem_fun( *this,
                                        &Tickable_Czar::on_timer ),
-                        (*i).second );
+                        i.second );
 
         // Timer intervals are specifid in Hz, and Glib wants the
         // timeout value in milliseconds.
         //
-        Glib::signal_timeout().connect( slot, 1000 / (*i).first );
+        Glib::signal_timeout().connect( slot, 1000 / i.first );
     }   
 }
 
 
 bool Miffles::Tickable_Czar::on_timer( Tickable_List &me )
 {
-    for ( auto i = me.begin(); i != me.end(); ++i ) {
-        bool dirty = (*i)->tick();
+    for ( auto i : me ) {
+        bool dirty = i->tick();
         /// XXX invalidate only the Frame that a Midget belongs to.        
     }
 
     // Hack to invalidate all Frames during development.
     assert( m_dashboard );
-    for ( auto i = m_dashboard->m_frames->begin();
-          i != m_dashboard->m_frames->end();
-          ++i ) {
-        (*i)->redraw();
+    for ( auto i : *m_dashboard->m_frames ) {
+        i->redraw();
     }
     return true;
 }

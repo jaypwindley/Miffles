@@ -103,10 +103,8 @@ int Miffles::App::run( void )
     m_window->set_default_size( e.width(), e.height() );
 
     // Add all the Midgets to the top-level window.
-    for ( auto i = m_dashboard->m_frames->begin();
-          i != m_dashboard->m_frames->end();
-          ++i ) {
-        m_window->add( *( (Gtk::DrawingArea *) (*i) ) );
+    for ( auto i : *m_dashboard->m_frames ) {
+        m_window->add( *( (Gtk::DrawingArea *) i ) );
     }                
 
     // Activate all the widgets.
