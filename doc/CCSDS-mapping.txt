@@ -1,0 +1,44 @@
+APPLICATION PROCESSES
+
+Handshake
+
+Powerplant
+   Vehicle Speed
+   Engine Speed
+   Engine Load
+   Engine Coolant Temperature
+   Long-Term Engine Trim
+   Short-Term Engine Trim
+   Ignition Leading
+   Throttle Position
+   Throttle Control Law
+   OBD2 Error Code
+
+Propellant   
+   Engine Intake Temperature
+   Fuel Mass Flow Rate
+   Oxidizer Mass Flow Rate
+   Exhaust O2
+
+GPS
+  GPS Position and Error
+  GPS Course
+  GPS Speed
+
+Magnetometer
+  Magnetic Heading
+  True Heading
+  Heading Error
+
+IMU
+  Accelerometers
+  Gyroscopic Rates
+
+VIRTUAL CHANNELS
+
+MASTER CHANNEL
+
+PHYSICAL CHANNEL
+
+The PHYSICAL CHANNEL is a wired or wireless internet connection over
+public or private networks, over which UDP packets may be carried.

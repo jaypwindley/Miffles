@@ -1,0 +1,16 @@
+GPS,<time>,<latitude>,<longitude>,<altitude>,<hor-accuracy>,<vert-accuracy>,<course>,<speed>
+COMPASS,<time>,<true-hdg>,<mag-hdg>,<hdg-accuracy>,<x-val>,<y-val>,<z-val>
+ACCEL,<time>,<x-val>,<y-val>,<z-val>
+GYRO,<time>,<x-val>,<y-val>,<z-val>
+
+GPS and COMPASS use one time base, ACCEL and GYRO use a different time base.  Both are in units of decimal seconds, but have a different origin.
+
+GPS accuracy is in meters.  Course is in decimal degrees, speed in meters per second; negative values indicate invalid sensor data.
+
+COMPASS true heading is derived from magnetic heading, so accuracy (in degrees) applies to both.  Raw XYZ magnetometer data is in microteslas normalized [-128,128] to indicate deflection from relevant magnetic field line.
+
+Inertial reference frame is RH coordinate system with +X to the right, +Y up, and +Z extending out from the touchscreen.
+
+ACCEL units are in Gs.  Readings include gravity acceleration.
+
+GYRO units are Euler rates in radians per second.
