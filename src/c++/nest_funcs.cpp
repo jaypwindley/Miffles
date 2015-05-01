@@ -55,7 +55,7 @@ bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
     cr->arc_negative( 0, 0,
                       Miffles::Nest::radius,
                       m->m_field->m_origin,
-                      m->m_field->m_origin - m->m_field->m_extent + ang );
+                      ang );
     cr->stroke();
     cr->restore();
 
@@ -75,12 +75,14 @@ bool Miffles::Nest::Setpoint_Temp::draw( const Midget::Cairo_Context &cr )
     double ang = m->m_field->m_origin -
         m->m_field->m_extent * fraction();
 
+    cr->save();
     cr->rotate( ang );
     cr->set_source_rgba( COLOR_SPEC( Miffles::Color::White ) );
     cr->set_line_width( 3.0 );
     cr->move_to( Miffles::Nest::radius - (Miffles::Nest::band_thick / 2) - Miffles::Nest::bug_offset, 0 );
     cr->line_to( Miffles::Nest::radius + (Miffles::Nest::band_thick / 2), 0 );
     cr->stroke();
+    cr->restore();
     
     return true;
 }
