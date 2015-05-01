@@ -17,6 +17,7 @@
 namespace Miffles {
 
     class Dashboard;
+    class Frame;
     
     //******************************************************************
     //
@@ -64,7 +65,8 @@ namespace Miffles {
     //
     //******************************************************************
 
-    typedef std::list<Tickable *> Tickable_List;
+    typedef std::pair< Tickable *, Frame * > Tickable_List_Element;
+    typedef std::list< Tickable_List_Element > Tickable_List;
     
     class Tickable_Czar : public std::map< int, Tickable_List > {
 
@@ -80,10 +82,12 @@ namespace Miffles {
     public:
 
         //--------------------------------------------------------------
-        // Add a Tickable to this Czar.  If defer is true, do not
-        // rejigger the toolkit callbacks as a result of this addition.
+        // Add a Tickable to this Czar.  Force a redraw of the given
+        // Frame if the tick results in a change in the appearance of
+        // the Frame.  If defer is true, do not rejigger the toolkit
+        // callbacks as a result of this addition.
         //
-        void add( Tickable *t, bool defer = true );
+        void add( Tickable *t, Frame *f, bool defer = true );
 
 
         //

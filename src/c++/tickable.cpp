@@ -24,10 +24,10 @@ Miffles::Tickable_Czar::Tickable_Czar( Miffles::Dashboard *_dashboard ) :
 }
 
 
-void Miffles::Tickable_Czar::add( Miffles::Tickable *t, bool defer )
+void Miffles::Tickable_Czar::add( Miffles::Tickable *t, Miffles::Frame *f, bool defer )
 {
     assert( t );
-    (*this)[ t->m_hertz ].push_back( t );
+    (*this)[ t->m_hertz ].push_back( Tickable_List_Element( t, f ) );
     if ( ! defer ) link_timers();
 }   
 
@@ -56,14 +56,10 @@ void Miffles::Tickable_Czar::link_timers( void )
 bool Miffles::Tickable_Czar::on_timer( Tickable_List &me )
 {
     for ( auto i : me ) {
-        bool dirty = i->tick();
-        /// XXX invalidate only the Frame that a Midget belongs to.        
+        if ( i.first->tick() ) {
+            i.second->redraw();
+        }
     }
 
-    // Hack to invalidate all Frames during development.
-    assert( m_dashboard );
-    for ( auto i : *m_dashboard->m_frames ) {
-        i->redraw();
-    }
     return true;
 }

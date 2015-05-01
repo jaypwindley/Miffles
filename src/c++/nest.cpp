@@ -44,7 +44,7 @@ int main( int argc, char **argv )
     // Setpoint indicator.
     Nest::Setpoint_Temp setpoint( "setpoint" );
     setpoint.m_sweep = new Sweep( 3.0 );
-    App::app()->m_tickables->add( setpoint.m_sweep );
+    App::app()->m_tickables->add( setpoint.m_sweep, &meter );
     setpoint.m_scale = &scale;
     setpoint.listen( "setpoint" );
     meter.add( &setpoint );
@@ -61,7 +61,7 @@ int main( int argc, char **argv )
     // Temperature indicator.
     Nest::Actual_Temp actual_temp( "actual_temp" );
     actual_temp.m_sweep = new Sweep( 3.0 );
-    App::app()->m_tickables->add( actual_temp.m_sweep );
+    App::app()->m_tickables->add( actual_temp.m_sweep, &meter );
     actual_temp.m_scale = &scale;
     actual_temp.listen( "temp" );
     meter.add( &actual_temp );
