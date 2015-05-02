@@ -74,7 +74,6 @@ bool Miffles::Nest::Setpoint_Temp::draw( const Midget::Cairo_Context &cr )
 
     double ang = m->m_field->m_origin -
         m->m_field->m_extent * fraction();
-    fprintf( stderr, ".\n" );
 
     cr->save();
     cr->rotate( ang );
