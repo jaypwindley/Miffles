@@ -20,7 +20,7 @@ int main( int argc, char **argv )
     App::create( argc, argv, "Miffles" );
 
     //App::app()->add_input( "/var/spool/miffles/pipes/data" );
-    App::app()->add_input( 1 );
+    App::app()->add_input( fileno( stdin ) );
     App::app()->m_demux->m_decoder = new WS_Channel_Decoder();
     
 #if 1    

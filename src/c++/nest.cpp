@@ -21,7 +21,7 @@ int main( int argc, char **argv )
     App::create( argc, argv, "Miffles" );
 
     // Connect it to standard input as the channel stream.
-    App::app()->add_input( 1 );
+    App::app()->add_input( fileno( stdin ) );
     App::app()->m_demux->m_decoder = new WS_Channel_Decoder();
     App::app()->m_demux->register_channel( "temp", Miffles::Type::NUM );
     App::app()->m_demux->register_channel( "setpoint", Miffles::Type::NUM );
