@@ -41,7 +41,19 @@ double Miffles::Linear_Scale::fraction( const double measure )
 }
 
 
+double Miffles::Linear_Scale::measure( const double fraction )
+{
+    return fraction * m_size + m_origin;
+}
+
+
 double Miffles::Nonlinear_Scale::fraction( const double measure )
 {
     return ( log( measure - m_origin) * m_base_conv ) / m_size;
+}
+
+
+double Miffles::Nonlinear_Scale::measure( const double fraction )
+{
+    return exp( fraction * m_size / m_base_conv );
 }

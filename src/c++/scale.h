@@ -43,6 +43,14 @@ namespace Miffles {
         // value can be outside the range [0,1].
         //
         virtual double fraction( const double measure ) = 0;
+
+
+        //--------------------------------------------------------------
+        // The inverse of fraction().  Returns a measure in Domain space
+        // given the non-normalized fraction measure.  The value of
+        // fraction can be outside the range [0,1].
+        //
+        virtual double measure( const double fraction ) = 0;
     };
 
 
@@ -66,7 +74,7 @@ namespace Miffles {
         Linear_Scale( Domain d );
 
         virtual double fraction( const double measure );
-
+        virtual double measure( const double fraction );
     };
 
 
@@ -89,6 +97,7 @@ namespace Miffles {
                          double _base = 10.0 );
         
         virtual double fraction( const double measure );
+        virtual double measure( const double fraction );
     };
 }
 
