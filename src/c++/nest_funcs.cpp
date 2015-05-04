@@ -2,6 +2,10 @@
 #include "types.h"
 #include "field.h"
 #include "meter.h"
+#include "macros.h"
+#include "text.h"
+#include "sweep.h"
+#include "scale.h"
 
 Miffles::Nest::Background::Background( char const *_name ) :
     Miffles::Color_Background( _name )
@@ -57,7 +61,28 @@ bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
                       m->m_field->m_origin,
                       ang );
     cr->stroke();
+
+    ang -= 0.1;
+    std::string text;
+    {
+        char s[ 4 ];
+        sprintf( s, "%2.0f", m_scale->measure( m_sweep->at() ) );
+        text = s;
+    }
+
+    {
+        Miffles::Text_Style style;
+        style.m_h_justify = Miffles::Text_Style::CENTER;
+        style.m_v_justify = Miffles::Text_Style::MIDDLE;
+        style.m_font_size = 12.0;
+        style.m_color = Color( 0.8, 0.8, 0.8 );
+        Point pt( Miffles::Nest::radius * cos( ang ),
+                  Miffles::Nest::radius * sin( ang ) );
+        render_text( cr, &style, pt, text );
+    }
+    
     cr->restore();
+
 
     return true;
 }
