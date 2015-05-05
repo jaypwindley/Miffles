@@ -10,6 +10,7 @@
 #ifndef __MIFFLES_BACKGROUND_H__
 #define __MIFFLES_BACKGROUND_H__
 
+#include <string>
 #include "midget.h"
 #include "types.h"
 
@@ -29,7 +30,21 @@ namespace Miffles {
         virtual ~Color_Background() {}
         virtual bool draw( const Midget::Cairo_Context &cr );
     };
-    
+
+
+    //******************************************************************
+    //
+    //  Background that fills with an image.
+    //
+    //******************************************************************
+    class Image_Background : public Midget {
+    public:
+        Glib::RefPtr< Gdk::Pixbuf > m_pixbuf;
+    public:
+        Image_Background( char const *_name, std::string file_name );
+        virtual ~Image_Background() {}
+        virtual bool draw( const Midget::Cairo_Context &cr );
+    };
 }
 
 #endif /*__MIFFLES_BACKGROUND_H__*/
