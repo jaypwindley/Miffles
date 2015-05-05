@@ -37,9 +37,13 @@ int main( int argc, char **argv )
     // Linear scale from 60 F to 90 F.
     Linear_Scale scale( Domain( 60, 90 ) );
 
-    // Black background with the dashed arc.
-    Nest::Background bg( "background" );
-    meter.add( &bg );
+    // Use a background image.
+    Miffles::Image_Background img( "image_bg", "dial-bg.png" );
+    meter.add( &img );
+    
+    // Black background with the dashed arc.    
+    //Nest::Background bg( "background" );
+    //meter.add( &bg );
 
     // Setpoint indicator.
     Nest::Setpoint_Temp setpoint( "setpoint" );
