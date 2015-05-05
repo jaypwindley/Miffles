@@ -41,7 +41,7 @@ int main( int argc, char **argv )
     hand.m_scale = &my_scale;
     App::app()->m_demux->register_channel( "temp", Miffles::Type::NUM );
     hand.listen( "temp" );
-    App::app()->m_tickables->add( hand.m_sweep );
+    App::app()->m_tickables->add( hand.m_sweep, &test_meter );
 
     Graduation grad( "temp_grad" );
     grad.m_scale = &my_scale;
