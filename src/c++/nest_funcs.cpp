@@ -1,3 +1,4 @@
+#include <gdkmm/pixbuf.h>
 #include "nest.h"
 #include "types.h"
 #include "field.h"
@@ -35,12 +36,22 @@ bool Miffles::Nest::Background::draw( const Midget::Cairo_Context &cr )
     return true;
 }
     
-
+#if 0
 Miffles::Nest::Actual_Temp::Actual_Temp( char const *_name ) :
     Miffles::Bug( _name )
 {
     /*EMPTY*/
 }
+#else
+Miffles::Nest::Actual_Temp::Actual_Temp( char const *_name,
+                                         std::string file,
+                                         Miffles::Point _anchor ) :
+    Miffles::Bug( _name ),
+    m_anchor( _anchor )
+{
+    m_pixbuf = Gdk::Pixbuf::create_from_file( file );    
+}
+#endif
 
 bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
 {
@@ -50,6 +61,7 @@ bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
     double ang = m->m_field->m_origin -
         m->m_field->m_extent * fraction();
 
+ #if 0
     cr->set_line_width( Miffles::Nest::band_thick );
     cr->set_source_rgba( COLOR_SPEC( Color( 0.8, 0.8, 0.8 ) ) );
     std::vector<double> dashes;
@@ -82,7 +94,34 @@ bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
     }
     
     cr->restore();
+ #else
 
+    cr->save();
+
+    // Rotate into the indicated angle.
+    cr->rotate( ang );
+
+    // "fudge" compensates in this one and only case for the likelihood
+    // that the images that describe a radial indicator are about half
+    // the size of the intended pixel resolution of the Frame/Meter.  In
+    // the final form, the proper scale factor should be inferred from
+    // objective data.
+    //
+    static const double fudge = 1.7;
+    double scale_factor = ( 200.0 / fudge ) / m_pixbuf->get_width();
+
+    // Translate the pixel map to the designated (scaled) anchor point.
+    cr->translate( -m_anchor.x() * scale_factor, -m_anchor.y() * scale_factor );
+
+    // ...and then scale the pixmap to standard [-200,200] coordinates.
+    cr->scale( scale_factor, scale_factor );
+    
+    Gdk::Cairo::set_source_pixbuf( cr, m_pixbuf, 0, 0 );
+    cr->paint();
+    
+    cr->restore();
+    
+ #endif
 
     return true;
 }

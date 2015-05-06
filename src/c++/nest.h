@@ -1,11 +1,14 @@
 #ifndef __MIFFLES_NEST_H__
 #define __MIFFLES_NEST_H__
 
+#include <string>
 #include "background.h"
 #include "indicator.h"
 #include "readout.h"
 
 namespace Miffles {
+
+    class Point;
 
     namespace Nest {
 
@@ -21,10 +24,18 @@ namespace Miffles {
             Background( char const *_name );
             virtual bool draw( const Midget::Cairo_Context &cr );
         };
-        
+
         class Actual_Temp : public ::Miffles::Bug {
         public:
+            Glib::RefPtr< Gdk::Pixbuf > m_pixbuf;
+            Miffles::Point m_anchor;
+            
+        public:
+#if 0            
             Actual_Temp( char const *_name );
+#else            
+            Actual_Temp( char const *_name, std::string file, Miffles::Point _anchor );
+#endif            
             virtual bool draw( const Midget::Cairo_Context &cr );
         };
 
