@@ -63,7 +63,9 @@ int main( int argc, char **argv )
     meter.add( &readout );
     
     // Temperature indicator.
-    Nest::Actual_Temp actual_temp( "actual_temp" );
+    Nest::Actual_Temp actual_temp( "actual_temp",
+                                   "nest-needle.png",
+                                   Point( 25, 12 ) );
     actual_temp.m_sweep = new Sweep( 3.0 );
     App::app()->m_tickables->add( actual_temp.m_sweep, &meter );
     actual_temp.m_scale = &scale;
