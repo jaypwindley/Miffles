@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              meter.h
+//  File:              meter.hpp
 //  Description:       Miffles Meter, coordinates Midgets in a Field.
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Mar 31 18:33:12 2015
@@ -7,19 +7,18 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_METER_H__
-#define __MIFFLES_METER_H__
+#pragma once
 
 #include <list>
 #include <string>
-#include "frame.h"
-#include "midget.h"
+#include "frame.hpp"
+#include "midget.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Field;
-    class Linear_Field;
-    class Radial_Field;
+    class field_t;
+    class linear_field_t;
+    class radial_field_t;
 
     //******************************************************************
     //
@@ -27,13 +26,13 @@ namespace Miffles {
     //  of Midgets as a coordinated set of presentation elements.
     //
     //******************************************************************
-    class Meter : public Frame {
+    class meter_t : public frame_t {
 
     public:
-        Field           *m_field;
+        field_t           *m_field;
         
     public:
-        Meter( char const *_name );
+        meter_t( char const *_name );
     };
 
 
@@ -44,11 +43,11 @@ namespace Miffles {
     //  horizontal or vertical.
     //
     //******************************************************************
-    class Linear_Meter : public Meter {
+    class linear_meter_t : public meter_t {
 
     public:
-        Linear_Meter( char const *_name );
-        virtual void set_field( Linear_Field *f );
+        linear_meter_t( char const *_name );
+        virtual void set_field( linear_field_t *f );
     };
 
 
@@ -59,12 +58,10 @@ namespace Miffles {
     //  (semi-)circle.
     //
     //******************************************************************
-    class Radial_Meter : public Meter {
+    class radial_meter_t : public meter_t {
 
     public:
-        Radial_Meter( char const * _name );
-        virtual void set_field( Radial_Field *f );
+        radial_meter_t( char const * _name );
+        virtual void set_field( radial_field_t *f );
     };
 }
-
-#endif /*__MIFFLES_METER_H__*/

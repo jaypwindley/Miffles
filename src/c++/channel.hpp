@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_CHANNEL_H__
-#define __MIFFLES_CHANNEL_H__
+#pragma once
 
 #include <string>
 #include <vector>
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
@@ -21,7 +20,7 @@ namespace Miffles {
     //  decoding.
     //
     //******************************************************************
-    typedef std::vector<std::string> Token_List;
+    typedef std::vector<std::string> token_list_t;
 
     //------------------------------------------------------------------
     // Test whether the strings can be decoded into the given atomic
@@ -47,10 +46,10 @@ namespace Miffles {
     //  values, etc.
     //
     //******************************************************************
-    class Channel_Decoder {
+    class channel_decoder_t {
     public:
-        virtual ~Channel_Decoder() {}
-        virtual Token_List parse( std::string &data ) = 0;
+        virtual ~channel_decoder_t() {}
+        virtual token_list_t parse( std::string &data ) = 0;
     };
 
 
@@ -59,11 +58,10 @@ namespace Miffles {
     //  Channel Decoder that separates tokens by white space.
     //
     //******************************************************************
-    class WS_Channel_Decoder : public Channel_Decoder {
+    class ws_channel_decoder_t : public channel_decoder_t {
     public:
-        virtual ~WS_Channel_Decoder() {}
-        virtual Token_List parse( std::string &data );
+        virtual ~ws_channel_decoder_t() {}
+        virtual token_list_t parse( std::string &data );
     };   
 }
 
-#endif /*__MIFFLES_CHANNEL_H__*/

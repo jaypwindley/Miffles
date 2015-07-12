@@ -7,18 +7,16 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_DASHBOARD___
-#define __MIFFLES_DASHBOARD___
+#pragma once
 
 #include <string>
 #include <list>
+#include "types.hpp"
 
-#include "types.h"
+namespace miffles {
 
-namespace Miffles {
-
-    class Frame;
-    typedef std::list< Frame * > Frame_List;
+    class frame_t;
+    typedef std::list<frame_t *> frame_list_t;
     
     //******************************************************************
     //
@@ -26,27 +24,26 @@ namespace Miffles {
     //  opens a window and paints pixels on a screen.
     //
     //******************************************************************
-    class Dashboard
+    class dashboard_t
     {
     public:
-        Frame_List      *m_frames;
+        frame_list_t      *m_frames;
         
     public:
-        Dashboard();
-        virtual ~Dashboard();
+        dashboard_t();
+        virtual ~dashboard_t();
 
 
         //--------------------------------------------------------------
-        // Add a Frame to the dashboard.
-        void add( Point _origin, Frame *f );
+        // Add a frame to the dashboard.
+        void add( point_t _origin, frame_t *f );
 
         //--------------------------------------------------------------
         // Return an Extent representing the total width and height of
         // all the contained Frames.
         //
-        Extent extent( void );
+        extent_t extent( void );
     };
     
 }
 
-#endif /*__MIFFLES_DASHBOARD___*/

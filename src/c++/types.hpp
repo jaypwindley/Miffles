@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              types.h
+//  File:              types.hpp
 //  Description:       Basic Miffles types
 //  Author:            Jay Windley <jwindley>
 //  Created:           Mon Mar 30 23:58:45 2015
@@ -7,14 +7,11 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_TYPES_H__
-#define __MIFFLES_TYPES_H__
+#pragma once
 
 #include <map>
-#include <vector>
-#include <tuple>
 
-namespace Miffles {    
+namespace miffles {    
 
     //******************************************************************
     //
@@ -22,17 +19,19 @@ namespace Miffles {
     //  object.
     //
     //******************************************************************
-    class Extent : public std::pair< double, double > {
+    class extent_t {
+    private:
+        double m_w;
+        double m_h;
     public:
-        Extent( double _w = 0, double _h = 0 )
+        extent_t( const double _w = 0, const double _h = 0 ) :
+            m_w( _w ), m_h( _h )
         {
-            first  = _w;
-            second = _h;
         }
-        double     width(    void      )  { return first;  }
-        double     height(   void      )  { return second; }
-        void       width(    double _w )  { first  = _w;   }
-        void       height(   double _h )  { second = _h;   }
+        const double width(  void            )  const { return m_w;  }
+        const double height( void            )  const { return m_h; }
+        void         width(  const double _w )  { m_w  = _w;   }
+        void         height( const double _h )  { m_h = _h;   }
     };
 
 
@@ -41,25 +40,27 @@ namespace Miffles {
     //  A geometric 2D point.
     //
     //******************************************************************
-    class Point : public std::pair< double, double > {
+    class point_t {
+    private:
+        double m_x;
+        double m_y;
     public:
-        Point( double _x = 0, double _y = 0 )
+        point_t( const double _x = 0, const double _y = 0 ) :
+            m_x( _x ), m_y( _y )
         {
-            first  = _x;
-            second = _y;
         }
-        double x( void )       { return first;   }
-        double y( void )       { return second;  }
-        void   x( double _x )  { first = _x;     }
-        void   y( double _y )  { second = _y;    }
+        const double x( void ) const { return m_x;   }
+        const double y( void ) const { return m_y;;  }
+        void   x( const double _x )  { m_x = _x;  }
+        void   y( const double _y )  { m_y = _y; }
 
         //--------------------------------------------------------------
         // A Point plus an Extent is an Extent from the Point's origin.
         //
-        Extent operator + ( Extent &r )
+        extent_t operator + ( const extent_t &r ) const
         {
-            return Extent( first  + r.width(),
-                           second + r.height() );
+            return extent_t( m_x + r.width(),
+                             m_y + r.height() );
         }
     };
 
@@ -69,47 +70,51 @@ namespace Miffles {
     //   An RGBA color, normalized to [0..1].
     //
     //******************************************************************
-    class Color : public std::vector< double > {
-
+    class color_t {
+    private:
+        double m_r;
+        double m_g;
+        double m_b;
+        double m_a;
     private:
         // Standard X11 color names and RGB values from rgb.txt.
         typedef std::map< std::string,
-                          std::tuple< int, int, int > > RGB_Map;
+                          std::tuple<int, int, int>> RGB_map_t;
         
-        static RGB_Map m_RGB_txt;
+        static RGB_map_t m_RGB_txt;
         
     public:
         // Some predefined colors.
-        const static Color Black;
-        const static Color White;
-        const static Color Red;
-        const static Color Green;
-        const static Color Blue;
+        const static color_t black;
+        const static color_t white;
+        const static color_t red;
+        const static color_t green;
+        const static color_t blue;
         
     public:
 
         // Normalized RGB components.
-        Color( double r, double g, double b, double a = 1.0 )
+        color_t( const double r,
+                 const double g,
+                 const double b,
+                 const double a = 1.0 ) :
+            m_r( r ), m_g( g ), m_b( b ), m_a( a )
         {
-            push_back( r );
-            push_back( g );
-            push_back( b );
-            push_back( a );
         }
 
         // Standard color names.
-        Color( char const *_color, const double = 1.0 );
-        virtual ~Color() {}
+        color_t( char const *_color, const double = 1.0 );
+        virtual ~color_t() {}
         
-        void r( double _r ) { (*this)[ 0 ] = _r; }
-        void g( double _g ) { (*this)[ 1 ] = _g; }
-        void b( double _b ) { (*this)[ 2 ] = _b; }
-        void a( double _a ) { (*this)[ 3 ] = _a; }
+        void r( const double _r ) { m_r = _r; }
+        void g( const double _g ) { m_g = _g; }
+        void b( const double _b ) { m_b = _b; }
+        void a( const double _a ) { m_a = _a; }
         
-        double r( void ) const { return (*this)[ 0 ]; }
-        double g( void ) const { return (*this)[ 1 ]; }
-        double b( void ) const { return (*this)[ 2 ]; }
-        double a( void ) const { return (*this)[ 3 ]; }
+        double r( void ) const { return m_r; }
+        double g( void ) const { return m_g; }
+        double b( void ) const { return m_b; }
+        double a( void ) const { return m_a; }
 
     private:
         void load_RGB_txt( void );
@@ -124,5 +129,3 @@ namespace Miffles {
 #   define COLOR_SPEC(c) (c).r(),(c).g(),(c).b(),(c).a()
     
 }
-
-#endif /*__MIFFLES_TYPES_H__*/

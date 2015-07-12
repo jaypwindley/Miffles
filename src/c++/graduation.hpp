@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              graduation.h
+//  File:              graduation.hpp
 //  Description:       Miffles Graduation, marks on a meter
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Mar 31 18:51:55 2015
@@ -7,25 +7,24 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_GRADUATION_H__
-#define __MIFFLES_GRADUATION_H__
+#pragma once
 
-#include "midget.h"
+#include "midget.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Scale;
-    class Field;
+    class scale_t;
+    class field_t;
     
     //******************************************************************
     //
     //  Visually represents a Scale within the associated Field.
     //
-    class Graduation : public Midget {
+    class graduation_t : public midget_t {
 
     public:
-        Scale *m_scale;
-        Field *m_field;
+        scale_t *m_scale;
+        field_t *m_field;
 
         // I can make the case that this should point to the enclosing
         // Meter, solely so that if changes occur in Field or Scale they
@@ -33,11 +32,10 @@ namespace Miffles {
         // Meter can have more than one Scale.
 
     public:
-        Graduation( char const * _name );
+        graduation_t( char const * _name );
 
-        virtual bool draw( const Cairo_Context &cr );        
+        virtual bool draw( const cairo_context_t &cr );        
     };
     
 }
 
-#endif /*__MIFFLES_GRADUATION_H__*/

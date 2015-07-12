@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              input_demux.h
+//  File:              input_demux.hpp
 //  Description:       Miffles Input Demultiplexer
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Apr  7 09:08:08 2015
@@ -7,23 +7,22 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_INPUT_DEMUX_H__
-#define __MIFFLES_INPUT_DEMUX_H__
+#pragma once
 
 #include <map>
 #include <string>
-#include "settable.h"
+#include "settable.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Channel_Decoder;
+    class channel_decoder_t;
 
     //******************************************************************
     //
     //  Channel data types.
     //
     //******************************************************************
-    enum Type { UNKNOWN = 0, STRING, NUM, BOOL };
+    enum type_t { UNKNOWN = 0, STRING, NUM, BOOL };
 
 
     //******************************************************************
@@ -31,7 +30,7 @@ namespace Miffles {
     //  Maps a channel name to its data type.
     //
     //******************************************************************
-    typedef std::map< std::string, Type > Type_Registry;
+    typedef std::map< std::string, type_t > type_registry_t;
 
 
     //******************************************************************
@@ -41,16 +40,16 @@ namespace Miffles {
     //  multiple decoding methods.
     //
     //******************************************************************
-    class Input_Demultiplexer {
+    class input_demultiplexer_t {
 
     public:
-        std::map< std::string, Settable_List >     m_channels;
-        Channel_Decoder                           *m_decoder;
-        Type_Registry                              m_types;
+        std::map< std::string, settable_list_t >   m_channels;
+        channel_decoder_t                         *m_decoder;
+        type_registry_t                            m_types;
 
     public:
-        Input_Demultiplexer();
-        virtual ~Input_Demultiplexer() {}
+        input_demultiplexer_t();
+        virtual ~input_demultiplexer_t() {}
 
         
         //--------------------------------------------------------------
@@ -58,13 +57,13 @@ namespace Miffles {
         // saves time later when decoding the channel and dispatching
         // it.
         //
-        virtual void register_channel( std::string channel, Type type );
+        virtual void register_channel( std::string channel, type_t type );
 
         
         //--------------------------------------------------------------
         // Listen on channel for the given Settable.
         //
-        virtual void listen( std::string channel, Settable *settable );
+        virtual void listen( std::string channel, settable_t *settable );
 
         
         //--------------------------------------------------------------
@@ -75,5 +74,3 @@ namespace Miffles {
     };
     
 }
-
-#endif /*__MIFFLES_INPUT_DEMUX_H__*/

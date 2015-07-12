@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "text.h"
+#include "text.hpp"
 
-Miffles::Text_Style::Text_Style() :
+miffles::text_style_t::text_style_t() :
     m_h_justify( LEFT ),
     m_v_justify( BOTTOM ),
     m_font_size( 24.0 ),
-    m_color( Miffles::Color::Black )
+    m_color( miffles::color_t::black )
 {
-    /*EMPTY*/
 }

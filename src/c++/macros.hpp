@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              macros.h
+//  File:              macros.hpp
 //  Description:       Miffles preprocessor macros
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Mar 31 00:09:09 2015
@@ -7,8 +7,7 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_MACROS_H__
-#define __MIFFLES_MACROS_H__
+#pragma once
 
 #define PI 3.14159265359
 
@@ -17,6 +16,4 @@
 
 // Convert the fraction of a circle to radians.
 #define FRAC_TO_RAD(x) ((x)*(2*PI))
-
-#endif /*__MIFFLES_MACROS_H__*/
 

@@ -14,20 +14,20 @@
 #include <gtkmm.h>
 #include <glibmm/iochannel.h>
 #include <string>
-#include "app.h"
-#include "dashboard.h"
-#include "tickable.h"
-#include "input_demux.h"
+#include "app.hpp"
+#include "dashboard.hpp"
+#include "tickable.hpp"
+#include "input_demux.hpp"
 
 
-const char *Miffles::App::domain = "com.monkeygiblets.miffles";
-Miffles::App *Miffles::App::m_me = NULL;
+const char *miffles::app_t::domain = "com.monkeygiblets.miffles";
+miffles::app_t *miffles::app_t::m_me = NULL;
 
 
-Miffles::App::App( int argc, char **argv, char const *title ) :
-    m_dashboard( new Dashboard() ),
-    m_tickables( new Tickable_Czar( m_dashboard ) ),
-    m_demux( new Input_Demultiplexer )
+miffles::app_t::app_t( int argc, char **argv, char const *title ) :
+    m_dashboard( new dashboard_t() ),
+    m_tickables( new tickable_czar_t( m_dashboard ) ),
+    m_demux( new input_demultiplexer_t )
 {
     // Create the toolkit app.
     m_gtk_app = Gtk::Application::create( argc,
@@ -44,7 +44,7 @@ Miffles::App::App( int argc, char **argv, char const *title ) :
 
 
 
-Miffles::App::~App()
+miffles::app_t::~app_t()
 {
     delete m_window;
     delete m_dashboard;
@@ -52,23 +52,23 @@ Miffles::App::~App()
 }
 
 
-Miffles::App *Miffles::App::app( void )
+miffles::app_t *miffles::app_t::app( void )
 {
     assert( m_me );
-    return Miffles::App::m_me;
+    return miffles::app_t::m_me;
 }
 
 
 
 void
-Miffles::App::create( int argc, char **argv, char const *title )
+miffles::app_t::create( int argc, char **argv, char const *title )
 {
     if ( m_me ) return;
-    m_me = new ::Miffles::App( argc, argv, title );
+    m_me = new ::miffles::app_t( argc, argv, title );
 }
 
 
-void Miffles::App::add_input( int fd )
+void miffles::app_t::add_input( int fd )
 {
     if ( fd < 0 ) return;
 
@@ -77,7 +77,7 @@ void Miffles::App::add_input( int fd )
     //
     auto channel = Glib::IOChannel::create_from_fd( fd );
     auto slot = sigc::bind( sigc::mem_fun( *this,
-                                           &Miffles::App::handle_IO ),
+                                           &miffles::app_t::handle_IO ),
                             channel );
 
     // Connect the IO handler function to the Glib IO signal.
@@ -85,7 +85,7 @@ void Miffles::App::add_input( int fd )
 }
 
 
-void Miffles::App::add_input( char const *filename )
+void miffles::app_t::add_input( char const *filename )
 {
     // Open the named file and add the file descriptor.  O_NONBLOCK must
     // be specified in case the named file is an unopened named pipe.
@@ -94,12 +94,12 @@ void Miffles::App::add_input( char const *filename )
 }
 
 
-int Miffles::App::run( void )
+int miffles::app_t::run( void )
 {
     assert( m_gtk_app );
             
     // Accumulate the application size.
-    Extent e = m_dashboard->extent();
+    extent_t e = m_dashboard->extent();
     m_window->set_default_size( e.width(), e.height() );
 
     // Add all the Midgets to the top-level window.
@@ -118,8 +118,8 @@ int Miffles::App::run( void )
 }
 
 
-bool Miffles::App::handle_IO( Glib::IOCondition condition,
-                              Glib::RefPtr<Glib::IOChannel> channel )
+bool miffles::app_t::handle_IO( Glib::IOCondition condition,
+                                Glib::RefPtr<Glib::IOChannel> channel )
 {
     Glib::ustring buf;
 

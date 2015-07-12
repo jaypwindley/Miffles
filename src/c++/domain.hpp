@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_DOMAIN_H__
-#define __MIFFLES_DOMAIN_H__
+#pragma once
 
 #include <limits>
 
 
-namespace Miffles {
+namespace miffles {
 
     static const double MAX_OPEN = std::numeric_limits<double>::infinity();
     static const double MIN_OPEN = -MAX_OPEN;
@@ -24,7 +23,7 @@ namespace Miffles {
     // indicate an open-ended value for either endpoint.  m_max - m_min
     // must be non-zero for explicitly numerical endpoints.
     //
-    class Domain {
+    class domain_t {
 
     private:
         
@@ -33,19 +32,17 @@ namespace Miffles {
         double m_max;
         
     public:
-        Domain( double _min, double _max ) :
+        domain_t( double _min, double _max ) :
             m_min( _min ),
             m_max( _max )
         {
             if ( m_max <= m_min ) throw "invalid Domain arguments";
         }
             
-        virtual ~Domain() {}
+        virtual ~domain_t() {}
 
         double min( void ) { return m_min; }
         double max( void ) { return m_max; }
     };
     
 }
-
-#endif /*__MIFFLES_DOMAIN_H__*/

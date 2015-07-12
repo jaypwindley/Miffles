@@ -1,16 +1,15 @@
-#ifndef __MIFFLES_NEST_H__
-#define __MIFFLES_NEST_H__
+#pragma once
 
 #include <string>
-#include "background.h"
-#include "indicator.h"
-#include "readout.h"
+#include "background.hpp"
+#include "indicator.hpp"
+#include "readout.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Point;
+    class point_t;
 
-    namespace Nest {
+    namespace nest {
 
         const static double radius = 80.0;
         const static double band_thick = 15.0;
@@ -19,38 +18,37 @@ namespace Miffles {
         const static double field_org = 250.0;
         const static double field_arc = 320.0;
 
-        class Background : public ::Miffles::Color_Background {
+        class background_t : public ::miffles::color_background_t {
         public:
-            Background( char const *_name );
-            virtual bool draw( const Midget::Cairo_Context &cr );
+            background_t( char const *_name );
+            virtual bool draw( const midget_t::cairo_context_t &cr );
         };
 
-        class Actual_Temp : public ::Miffles::Bug {
+        class actual_temp_t : public ::miffles::bug_t {
         public:
             Glib::RefPtr< Gdk::Pixbuf > m_pixbuf;
-            Miffles::Point m_anchor;
+            miffles::point_t m_anchor;
             
         public:
 #if 0            
             Actual_Temp( char const *_name );
 #else            
-            Actual_Temp( char const *_name, std::string file, Miffles::Point _anchor );
+            actual_temp_t( char const *_name, std::string file, miffles::point_t _anchor );
 #endif            
-            virtual bool draw( const Midget::Cairo_Context &cr );
+            virtual bool draw( const midget_t::cairo_context_t &cr );
         };
 
-        class Setpoint_Temp : public ::Miffles::Indicator {
+        class setpoint_temp_t : public ::miffles::indicator_t {
         public:
-            Setpoint_Temp( char const *_name );
-            virtual bool draw( const Midget::Cairo_Context &cr );
+            setpoint_temp_t( char const *_name );
+            virtual bool draw( const midget_t::cairo_context_t &cr );
         };
 
-        class Setpoint_Readout : public ::Miffles::Readout {
+        class setpoint_readout_t : public ::miffles::readout_t {
         public:
-            Setpoint_Readout( char const *_name );
-            virtual bool draw( const Midget::Cairo_Context &cr );
+            setpoint_readout_t( char const *_name );
+            virtual bool draw( const midget_t::cairo_context_t &cr );
         };
     }
 }
 
-#endif /*__MIFFLES_NEST_H__*/

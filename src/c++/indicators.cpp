@@ -7,14 +7,14 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "indicators.h"
-#include "macros.h"
-#include "meter.h"
-#include "field.h"
-#include "types.h"
+#include "indicators.hpp"
+#include "macros.hpp"
+#include "meter.hpp"
+#include "field.hpp"
+#include "types.hpp"
 
-Miffles::Basic_Needle_Indicator::Basic_Needle_Indicator( char const *_name ) :
-    Indicator( _name ),
+miffles::basic_needle_indicator_t::basic_needle_indicator_t( char const *_name ) :
+    indicator_t( _name ),
     m_length( 90 ),
     m_thick( 1 )
 {
@@ -22,14 +22,14 @@ Miffles::Basic_Needle_Indicator::Basic_Needle_Indicator( char const *_name ) :
 
 
 bool
-Miffles::Basic_Needle_Indicator::draw( const Midget::Cairo_Context &cr ) {
+miffles::basic_needle_indicator_t::draw( const midget_t::cairo_context_t &cr ) {
 
     assert( m_frame );
     
     // XXX all this should move into Field or Scale.
     try {
-        Miffles::Meter *m =
-            static_cast <Miffles::Meter *> ( m_frame );
+        miffles::meter_t *m =
+            static_cast <miffles::meter_t *> ( m_frame );
         assert( m->m_field );
 
         // Compute the angle that corresponds to the Scale-normalized
@@ -61,24 +61,24 @@ Miffles::Basic_Needle_Indicator::draw( const Midget::Cairo_Context &cr ) {
 
 
 
-Miffles::Basic_Pointer_Indicator::Basic_Pointer_Indicator( char const *_name ) :
-    Indicator( _name ),
+miffles::basic_pointer_indicator_t::basic_pointer_indicator_t( char const *_name ) :
+    indicator_t( _name ),
     m_thick( 1 )
 {
 }
 
 
 bool
-Miffles::Basic_Pointer_Indicator::draw( const Midget::Cairo_Context &cr )
+miffles::basic_pointer_indicator_t::draw( const midget_t::cairo_context_t &cr )
 {
     assert( m_frame );
 
-    static Miffles::Color gutter( "gray50" );
+    static miffles::color_t gutter( "gray50" );
     
     // XXX all this should move into Field or Scale.
     try {
-        Miffles::Meter *m =
-            static_cast <Miffles::Meter *> ( m_frame );
+        miffles::meter_t *m =
+            static_cast <miffles::meter_t *> ( m_frame );
         assert( m->m_field );
 
 
@@ -94,8 +94,8 @@ Miffles::Basic_Pointer_Indicator::draw( const Midget::Cairo_Context &cr )
                 pos = m->m_field->m_origin + m->m_field->m_extent;
         }
 
-        Miffles::Linear_Field *lfield =
-            static_cast<Linear_Field *> ( m->m_field );
+        miffles::linear_field_t *lfield =
+            static_cast<linear_field_t *> ( m->m_field );
 
         cr->set_source_rgba( COLOR_SPEC( gutter ) );
         cr->rectangle( -30,
@@ -104,15 +104,15 @@ Miffles::Basic_Pointer_Indicator::draw( const Midget::Cairo_Context &cr )
                        lfield->m_extent );
         cr->fill();
 
-        cr->set_source_rgba( COLOR_SPEC( Miffles::Color::Red ) );
+        cr->set_source_rgba( COLOR_SPEC( miffles::color_t::red ) );
         cr->set_line_width( m_thick );
 
         switch( lfield->m_orientation ) {
-        case Miffles::Linear_Field::VERTICAL:
+        case miffles::linear_field_t::VERTICAL:
             cr->move_to( -50, pos );
             cr->line_to(  50, pos );
             break;
-        case Miffles::Linear_Field::HORIZONTAL:
+        case miffles::linear_field_t::HORIZONTAL:
             cr->move_to( pos, -50 );
             cr->line_to( pos,  50 );
             break;

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              scale.h
+//  File:              scale.hpp
 //  Description:       Linear and nonlinear scales
 //  Author:            Jay Windley <jwindley>
 //  Created:           Fri Mar 13 18:24:04 2015
@@ -7,32 +7,29 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_SCALE_H__
-#define __MIFFLES_SCALE_H__
+#include "domain.hpp"
 
-#include "domain.h"
-
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     // Maps a measurement to a Field.  m_origin is the measurement that
     // should be indicated at the Field.m_origin position.  The
     // specialized classes determine where subsequent values fall.
     //
-    class Scale {
+    class scale_t {
         
     protected:
         double          m_origin;
         double          m_size;
         
     public:
-        Scale( double _origin, double _size) :
+        scale_t( double _origin, double _size) :
             m_origin( _origin ),
             m_size( _size )
         {
         }
 
-        virtual ~Scale()
+        virtual ~scale_t()
         {
         }
 
@@ -62,16 +59,16 @@ namespace Miffles {
     // that corresponds to Field.m_extent.  For most gauges with finite
     // domains, this is Domain.m_max - Domain.m_min.
     //
-    class Linear_Scale : public Scale {
+    class linear_scale_t : public scale_t {
 
     public:
         
-        Linear_Scale( double _origin, double _size ) :
-            Scale( _origin, _size )
+        linear_scale_t( double _origin, double _size ) :
+            scale_t( _origin, _size )
         {
         }
 
-        Linear_Scale( Domain d );
+        linear_scale_t( domain_t d );
 
         virtual double fraction( const double measure );
         virtual double measure( const double fraction );
@@ -85,20 +82,18 @@ namespace Miffles {
     // post-scaled units (i.e., the exponent).  m_origin is in
     // pre-scaled Domain units.
     //
-    class Nonlinear_Scale : public Scale {
+    class nonlinear_scale_t : public scale_t {
 
     private:
         double          m_base_conv;
         
     public:
 
-        Nonlinear_Scale( double _origin,
-                         double _size,
-                         double _base = 10.0 );
+        nonlinear_scale_t( double _origin,
+                           double _size,
+                           double _base = 10.0 );
         
         virtual double fraction( const double measure );
         virtual double measure( const double fraction );
     };
 }
-
-#endif /*__MIFFLES_SCALE_H__*/

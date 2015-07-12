@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              frame.h
+//  File:              frame.hpp
 //  Description:       Miffles Frame, the meter-scope container
 //  Author:            Jay Windley <jwindley>
 //  Created:           Mon Mar 30 23:43:06 2015
@@ -7,18 +7,16 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_FRAME_H__
-#define __MIFFLES_FRAME_H__
+#pragma once
 
 #include <gtkmm.h>
+#include "types.hpp"
 
-#include "types.h"
 
+namespace miffles {
 
-namespace Miffles {
-
-    class Midget;
-    class Midget_List;
+    class midget_t;
+    class midget_list_t;
     
     //******************************************************************
     //
@@ -32,26 +30,26 @@ namespace Miffles {
     //  largest dimension.
     //
     //******************************************************************
-    class Frame : public Gtk::DrawingArea {
+    class frame_t : public Gtk::DrawingArea {
 
     public:       
-        enum Resize_Policy { CLIP, FIT };
+        enum resize_policy_t { CLIP, FIT };
         
     public:
         std::string     m_name;
-        Point           m_origin;
-        Extent          m_size;
-        Resize_Policy   m_resize;
-        Midget_List     *m_midgets;
+        point_t         m_origin;
+        extent_t        m_size;
+        resize_policy_t m_resize;
+        midget_list_t  *m_midgets;
         
     public:
-        Frame( char const *_name );
-        virtual ~Frame();
+        frame_t( char const *_name );
+        virtual ~frame_t();
 
         //--------------------------------------------------------------
         // Add a Midget to this frame.
         //
-        void add( Midget *m );
+        void add( midget_t *m );
         
 
         //--------------------------------------------------------------
@@ -74,9 +72,8 @@ namespace Miffles {
         // Return an Extent giving the full width and height of the
         // content in this frame.
         //
-        virtual Extent actual_extent( void );
+        virtual extent_t actual_extent( void );
     };
     
 }
 
-#endif /*__MIFFLES_FRAME_H__*/

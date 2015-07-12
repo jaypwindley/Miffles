@@ -1,11 +1,8 @@
-#ifndef __MIFFLES_TEXT_H__
-#define __MIFFLES_TEXT_H__
+#include "types.hpp"
 
-#include "types.h"
+namespace miffles {
 
-namespace Miffles {
-
-    class Text_Style {
+    class text_style_t {
 
     public:
 
@@ -19,7 +16,7 @@ namespace Miffles {
         //  Default is LEFT.
         //
         //**************************************************************
-        enum H_Justification { LEFT, CENTER, RIGHT };
+        enum h_justification_t { LEFT, CENTER, RIGHT };
 
         //**************************************************************
         //
@@ -30,26 +27,25 @@ namespace Miffles {
         //
         //  Default is BOTTOM.
         //
-        enum V_Justification { TOP, MIDDLE, BOTTOM };
+        enum v_justification_t { TOP, MIDDLE, BOTTOM };
 
     public:
-        H_Justification     m_h_justify;
-        V_Justification     m_v_justify;
+        h_justification_t   m_h_justify;
+        v_justification_t   m_v_justify;
         double              m_font_size;
-        Miffles::Color      m_color;
+        miffles::color_t    m_color;
 
     public:
-        Text_Style();
-        virtual ~Text_Style() {}
+        text_style_t();
+        virtual ~text_style_t() {}
 
 
         //--------------------------------------------------------------
         // Set the color.
         //
-        void set_color( Miffles::Color &_color ) {
+        void set_color( const miffles::color_t &_color ) {
             m_color = _color;
         }
     };
 }
 
-#endif /*__MIFFLES_TEXT_H__*/

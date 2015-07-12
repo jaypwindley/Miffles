@@ -9,13 +9,12 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "scale.hpp"
+#include "domain.hpp"
 
-#include "scale.h"
-#include "domain.h"
 
-
-Miffles::Linear_Scale::Linear_Scale( Domain d ) :
-    Scale( d.min(), d.max() )
+miffles::linear_scale_t::linear_scale_t( domain_t d ) :
+    scale_t( d.min(), d.max() )
 {
     if ( ( d.min() == MIN_OPEN ) || ( d.max() == MAX_OPEN ) ) {
         /// XXX Throw something besides a string.
@@ -25,35 +24,34 @@ Miffles::Linear_Scale::Linear_Scale( Domain d ) :
 }
 
 
-Miffles::Nonlinear_Scale::Nonlinear_Scale( double _origin,
-                                           double _size,
-                                           double _base ) :
-    Scale( _origin, _size ),
+miffles::nonlinear_scale_t::nonlinear_scale_t( double _origin,
+                                               double _size,
+                                               double _base ) :
+    scale_t( _origin, _size ),
     m_base_conv( 1.0 / log( _base ) )       // Because math.
 {
-    /*EMPTY*/
 }
 
 
-double Miffles::Linear_Scale::fraction( const double measure )
+double miffles::linear_scale_t::fraction( const double measure )
 {
     return ( measure - m_origin ) / m_size; 
 }
 
 
-double Miffles::Linear_Scale::measure( const double fraction )
+double miffles::linear_scale_t::measure( const double fraction )
 {
     return fraction * m_size + m_origin;
 }
 
 
-double Miffles::Nonlinear_Scale::fraction( const double measure )
+double miffles::nonlinear_scale_t::fraction( const double measure )
 {
     return ( log( measure - m_origin) * m_base_conv ) / m_size;
 }
 
 
-double Miffles::Nonlinear_Scale::measure( const double fraction )
+double miffles::nonlinear_scale_t::measure( const double fraction )
 {
     return exp( fraction * m_size / m_base_conv );
 }

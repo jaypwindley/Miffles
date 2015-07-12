@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              midget.h
+//  File:              midget.hpp
 //  Description:       Miffles Midget, drawn primitive
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Mar 31 12:06:54 2015
@@ -7,43 +7,41 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_MIDGET_H__
-#define __MIFFLES_MIDGET_H__
+#pragma once
 
 #include <gtkmm.h>
 #include <assert.h>
 #include <list>
 #include <string>
+#include "types.hpp"
 
-#include "types.h"
+namespace miffles {
 
-namespace Miffles {
-
-    class Frame;
+    class frame_t;
     
     //******************************************************************
     //
     //  A Miffles widget.
     //
     //******************************************************************
-    class Midget
+    class midget_t
     {
     public:
         std::string     m_name;
-        Frame          *m_frame;
-        Point           m_origin;
+        frame_t        *m_frame;
+        point_t         m_origin;
         
     public:
-        Midget( char const *_name );
-        virtual ~Midget() {}
+        midget_t( char const *_name );
+        virtual ~midget_t() {}
 
         // Shorthand for the thing passed to the draw callback.
-        typedef ::Cairo::RefPtr<::Cairo::Context> Cairo_Context;
+        typedef ::Cairo::RefPtr<::Cairo::Context> cairo_context_t;
 
         //--------------------------------------------------------------
         // Draw with Cairo on the underlying drawing area.
         //
-        virtual bool draw( const Cairo_Context &cr ) = 0;
+        virtual bool draw( const cairo_context_t &cr ) = 0;
 
     };
 
@@ -56,12 +54,10 @@ namespace Miffles {
     //  cooperate.
     //
     //******************************************************************
-    class Midget_List : public std::list <Midget *> {
+    class midget_list_t : public std::list <midget_t *> {
     public:
-        Midget_List::iterator find( std::string &name );
+        midget_list_t::iterator find( std::string &name );
     };
     
 }
 
-
-#endif /*__MIFFLES_MIDGET_H__*/

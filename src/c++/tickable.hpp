@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              tickable.h
+//  File:              tickable.hpp
 //  Description:       Miffles timer-based objects
 //  Author:            Jay Windley <jwindley>
 //  Created:           Mon Mar 30 21:48:18 2015
@@ -7,17 +7,16 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_TICKABLE_H__
-#define __MIFFLES_TICKABLE_H__
+#pragma once
 
 #include <map>
 #include <list>
 
 
-namespace Miffles {
+namespace miffles {
 
-    class Dashboard;
-    class Frame;
+    class dashboard_t;
+    class frame_t;
     
     //******************************************************************
     //
@@ -25,7 +24,7 @@ namespace Miffles {
     //  clock ticks,
     //
     //******************************************************************
-    class Tickable {
+    class tickable_t {
 
     public:
         const static unsigned int DEFAULT_HERTZ;
@@ -34,12 +33,12 @@ namespace Miffles {
         unsigned int    m_hertz;
         
     public:
-        Tickable( unsigned int _hertz = DEFAULT_HERTZ ):
+        tickable_t( unsigned int _hertz = DEFAULT_HERTZ ):
             m_hertz( _hertz )
         {
         }
         
-        virtual ~Tickable()
+        virtual ~tickable_t()
         {
         }
 
@@ -65,17 +64,17 @@ namespace Miffles {
     //
     //******************************************************************
 
-    typedef std::pair< Tickable *, Frame * > Tickable_List_Element;
-    typedef std::list< Tickable_List_Element > Tickable_List;
+    typedef std::pair<tickable_t *, frame_t *> tickable_list_element_t;
+    typedef std::list<tickable_list_element_t> tickable_list_t;
     
-    class Tickable_Czar : public std::map< int, Tickable_List > {
+    class tickable_czar_t : public std::map<int, tickable_list_t> {
 
     public:
-        Dashboard       *m_dashboard;
+        dashboard_t       *m_dashboard;
         
     public:
-        Tickable_Czar( Dashboard *_dashboard );
-        virtual ~Tickable_Czar()
+        tickable_czar_t( dashboard_t *_dashboard );
+        virtual ~tickable_czar_t()
         {
         }
 
@@ -87,7 +86,7 @@ namespace Miffles {
         // the Frame.  If defer is true, do not rejigger the toolkit
         // callbacks as a result of this addition.
         //
-        void add( Tickable *t, Frame *f, bool defer = true );
+        void add( tickable_t *t, frame_t *f, bool defer = true );
 
 
         //
@@ -112,12 +111,10 @@ namespace Miffles {
 
         //--------------------------------------------------------------
         // Suitable for installation as a timer handler function,
-        // passing a Tickable_List as the closure.
+        // passing a Tickable_List as the closure data.
         //
         // XXX handle closure to pass this
         //
-        bool on_timer( Tickable_List &me );
+        bool on_timer( tickable_list_t &me );
     };
 }
-
-#endif /*__MIFFLES_TICKABLE_H__*/

@@ -8,19 +8,18 @@
 // -----------------------------------------------------------------------
 
 #include <gtkmm.h>
+#include "graduation.hpp"
+#include "midget.hpp"
+#include "field.hpp"
 
-#include "graduation.h"
-#include "midget.h"
-#include "field.h"
 
-
-Miffles::Graduation::Graduation( char const *_name ) :
-    Midget( _name )
+miffles::graduation_t::graduation_t( char const *_name ) :
+    midget_t( _name )
 {
 }
 
 
-bool Miffles::Graduation::draw( const Cairo_Context &cr )
+bool miffles::graduation_t::draw( const cairo_context_t &cr )
 {
     assert( m_field );
     cr->set_line_width( 1 );

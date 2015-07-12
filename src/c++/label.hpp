@@ -1,33 +1,30 @@
-#ifndef __MIFFLES_LABEL_H__
-#define __MIFFLES_LABEL_H__
+#pragma once
 
 #include <gtkmm.h>
 #include <string>
-#include "midget.h"
+#include "midget.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Text_Style;
+    class text_style_t;
     
-    class Label : public Midget {
+    class label_t : public midget_t {
 
     public:
-        Text_Style     *m_style;
+        text_style_t   *m_style;
         std::string     m_text;
         
     public:
-        Label( char const *_name );
-        virtual ~Label() {}
+        label_t( char const *_name );
+        virtual ~label_t() {}
 
-        virtual bool draw( const Cairo_Context &cr );
+        virtual bool draw( const cairo_context_t &cr );
 
     };
 
-    void render_text( const Midget::Cairo_Context &cr,
-                      Miffles::Text_Style *style,
-                      Point &at,
+    void render_text( const midget_t::cairo_context_t &cr,
+                      miffles::text_style_t *style,
+                      point_t &at,
                       std::string &s );
     
 }
-
-#endif /*__MIFFLES_LABEL_H__*/

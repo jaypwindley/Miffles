@@ -1,33 +1,32 @@
 #include <gdkmm/pixbuf.h>
-#include "nest.h"
-#include "types.h"
-#include "field.h"
-#include "meter.h"
-#include "macros.h"
-#include "text.h"
-#include "sweep.h"
-#include "scale.h"
+#include "nest.hpp"
+#include "types.hpp"
+#include "field.hpp"
+#include "meter.hpp"
+#include "macros.hpp"
+#include "text.hpp"
+#include "sweep.hpp"
+#include "scale.hpp"
 
-Miffles::Nest::Background::Background( char const *_name ) :
-    Miffles::Color_Background( _name )
+miffles::nest::background_t::background_t( char const *_name ) :
+    miffles::color_background_t( _name )
 {
-    /*EMPTY*/
 }
 
 
-bool Miffles::Nest::Background::draw( const Midget::Cairo_Context &cr )
+bool miffles::nest::background_t::draw( const midget_t::cairo_context_t &cr )
 {
-    Miffles::Color_Background::draw( cr );
-    Miffles::Radial_Meter *m = dynamic_cast <Radial_Meter *> ( m_frame );
+    miffles::color_background_t::draw( cr );
+    miffles::radial_meter_t *m = dynamic_cast <radial_meter_t *> ( m_frame );
     assert( m->m_field );
-    cr->set_line_width( Miffles::Nest::band_thick );
-    cr->set_source_rgba( COLOR_SPEC( Color( 0.6, 0.6, 0.6 ) ) );
+    cr->set_line_width( miffles::nest::band_thick );
+    cr->set_source_rgba( COLOR_SPEC( color_t( 0.6, 0.6, 0.6 ) ) );
     std::vector<double> dashes;
-    dashes.push_back( Miffles::Nest::dash );
+    dashes.push_back( miffles::nest::dash );
     cr->save();
     cr->set_dash( dashes, 0 );
     cr->arc_negative( 0, 0,
-                      Miffles::Nest::radius,
+                      miffles::nest::radius,
                       m->m_field->m_origin,
                       m->m_field->m_origin - m->m_field->m_extent );
     cr->stroke();
@@ -43,19 +42,19 @@ Miffles::Nest::Actual_Temp::Actual_Temp( char const *_name ) :
     /*EMPTY*/
 }
 #else
-Miffles::Nest::Actual_Temp::Actual_Temp( char const *_name,
-                                         std::string file,
-                                         Miffles::Point _anchor ) :
-    Miffles::Bug( _name ),
+miffles::nest::actual_temp_t::actual_temp_t( char const *_name,
+                                             std::string file,
+                                             miffles::point_t _anchor ) :
+    miffles::bug_t( _name ),
     m_anchor( _anchor )
 {
     m_pixbuf = Gdk::Pixbuf::create_from_file( file );    
 }
 #endif
 
-bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
+bool miffles::nest::actual_temp_t::draw( const midget_t::cairo_context_t &cr )
 {
-    Miffles::Radial_Meter *m = dynamic_cast <Radial_Meter *> ( m_frame );
+    miffles::radial_meter_t *m = dynamic_cast <radial_meter_t *> ( m_frame );
     assert( m->m_field );
 
     double ang = m->m_field->m_origin -
@@ -126,14 +125,14 @@ bool Miffles::Nest::Actual_Temp::draw( const Midget::Cairo_Context &cr )
     return true;
 }
 
-Miffles::Nest::Setpoint_Temp::Setpoint_Temp( char const *_name ) :
-    Miffles::Indicator( _name )
+miffles::nest::setpoint_temp_t::setpoint_temp_t( char const *_name ) :
+    miffles::indicator_t( _name )
 {
 }
 
-bool Miffles::Nest::Setpoint_Temp::draw( const Midget::Cairo_Context &cr )
+bool miffles::nest::setpoint_temp_t::draw( const midget_t::cairo_context_t &cr )
 {
-    Miffles::Radial_Meter *m = dynamic_cast <Radial_Meter *> ( m_frame );
+    miffles::radial_meter_t *m = dynamic_cast <radial_meter_t *> ( m_frame );
     assert( m->m_field );
 
     double ang = m->m_field->m_origin -
@@ -141,10 +140,10 @@ bool Miffles::Nest::Setpoint_Temp::draw( const Midget::Cairo_Context &cr )
 
     cr->save();
     cr->rotate( ang );
-    cr->set_source_rgba( COLOR_SPEC( Miffles::Color::White ) );
+    cr->set_source_rgba( COLOR_SPEC( miffles::color_t::white ) );
     cr->set_line_width( 3.0 );
-    cr->move_to( Miffles::Nest::radius - (Miffles::Nest::band_thick / 2) - Miffles::Nest::bug_offset, 0 );
-    cr->line_to( Miffles::Nest::radius + (Miffles::Nest::band_thick / 2), 0 );
+    cr->move_to( miffles::nest::radius - (miffles::nest::band_thick / 2) - miffles::nest::bug_offset, 0 );
+    cr->line_to( miffles::nest::radius + (miffles::nest::band_thick / 2), 0 );
     cr->stroke();
     cr->restore();
     
@@ -152,18 +151,17 @@ bool Miffles::Nest::Setpoint_Temp::draw( const Midget::Cairo_Context &cr )
 }
 
 
-Miffles::Nest::Setpoint_Readout::Setpoint_Readout( char const *_name ) :
-    Miffles::Readout( _name )
+miffles::nest::setpoint_readout_t::setpoint_readout_t( char const *_name ) :
+    miffles::readout_t( _name )
 {
-    /*EMPTY*/
 }
 
 bool
-Miffles::Nest::Setpoint_Readout::draw( const Midget::Cairo_Context &cr )
+miffles::nest::setpoint_readout_t::draw( const midget_t::cairo_context_t &cr )
 {
     char label[8];
     sprintf( label, "%2.0f", m_value );
     m_text = label;
-    Miffles::Label::draw( cr );
+    miffles::label_t::draw( cr );
     return true;
 }

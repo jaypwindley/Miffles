@@ -1,16 +1,15 @@
-#include "discrete.h"
+#include "discrete.hpp"
 
 
-Miffles::Discrete::Discrete( char const *_name ) :
-    Midget( _name ),
+miffles::discrete_t::discrete_t( char const *_name ) :
+    midget_t( _name ),
     m_state( -1 ),
     m_is_circular( false )
 {
-    /*EMPTY*/
 }
 
 
-void Miffles::Discrete::add_state( char const *state )
+void miffles::discrete_t::add_state( char const *state )
 {
     if ( find( state ) != -1 ) {
         throw "duplicate state";
@@ -19,7 +18,7 @@ void Miffles::Discrete::add_state( char const *state )
 }
 
 
-void Miffles::Discrete::set( char const *state )
+void miffles::discrete_t::set( char const *state )
 {
     int idx = find( state );
     if ( idx == -1 ) throw "no such state";
@@ -27,7 +26,7 @@ void Miffles::Discrete::set( char const *state )
 }
 
 
-void Miffles::Discrete::set( const int state )
+void miffles::discrete_t::set( const int state )
 {
     if ( ( state < 0 ) || ( state >= m_states.size() ) ) {
         throw "state index out of range";
@@ -37,7 +36,7 @@ void Miffles::Discrete::set( const int state )
 }
 
 
-void Miffles::Discrete::inc( void )
+void miffles::discrete_t::inc( void )
 {
     ++m_state;
     if ( m_is_circular ) {
@@ -49,7 +48,7 @@ void Miffles::Discrete::inc( void )
 }
 
 
-void Miffles::Discrete::dec( void )
+void miffles::discrete_t::dec( void )
 {
     --m_state;
     if ( m_state < 0 ) {
@@ -62,7 +61,7 @@ void Miffles::Discrete::dec( void )
 }
 
 
- int Miffles::Discrete::find( char const *name )
+ int miffles::discrete_t::find( char const *name )
  {
      std::string state( name );
      for ( int i = 0; i < m_states.size(); ++i ) {

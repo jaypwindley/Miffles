@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              sweep.h
+//  File:              sweep.hpp
 //  Description:       Sweep delay for meters
 //  Author:            Jay Windley <jwindley>
 //  Created:           Fri Mar 13 19:29:17 2015
@@ -7,12 +7,11 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_SWEEP_H__
-#define __MIFFLES_SWEEP_H__
+#pragma once
 
-#include "tickable.h"
+#include "tickable.hpp"
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
@@ -22,7 +21,7 @@ namespace Miffles {
     // independent of update frequency.
     //
     //******************************************************************
-    class Sweep : public Tickable {
+    class sweep_t : public tickable_t {
         
     protected:
         double          m_setpoint;
@@ -32,18 +31,18 @@ namespace Miffles {
         double m_at;
         
     public:
-        Sweep( double _rate );
-        virtual ~Sweep()
+        sweep_t( double _rate );
+        virtual ~sweep_t()
         {
         }
 
-        virtual double at( void ) { return m_at; }
+        virtual double at( void ) const { return m_at; }
 
         //--------------------------------------------------------------
         // Is the indicator on par with the setpoint?  Use this function
         // to optimize whether redraws are needed.
         //
-        virtual bool par( void ) { return m_setpoint == m_at; }
+        virtual bool par( void ) const { return m_setpoint == m_at; }
 
         
         //--------------------------------------------------------------
@@ -70,22 +69,20 @@ namespace Miffles {
     // interface unviersally.
     //
     //******************************************************************
-    class Sweep_Dummy : public Sweep {
+    class sweep_dummy_t : public sweep_t {
     public:
-        Sweep_Dummy( double _val = 0.0 ) :
-            Sweep( 1.0 )
+        sweep_dummy_t( double _val = 0.0 ) :
+            sweep_t( 1.0 )
         {
             set( _val );
         }
 
-        virtual ~Sweep_Dummy()
+        virtual ~sweep_dummy_t()
         {
         }
 
-        virtual double at( void ) { return m_setpoint; }
-        virtual bool par( void ) { return true; }        
+        virtual double at( void ) const { return m_setpoint; }
+        virtual bool par( void ) const { return true; }        
     };
     
 }
-
-#endif /*__MIFFLES_SWEEP_H__*/

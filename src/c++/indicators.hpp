@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              indicators.h
+//  File:              indicators.hpp
 //  Description:       Miscellaneous Miffles indicators
 //  Author:            Jay Windley <jwindley>
 //  Created:           Mon Mar 30 23:44:21 2015
@@ -7,14 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_INDICATORS_H__
-#define __MIFFLES_INDICATORS_H__
+#pragma once
 
 #include <gtkmm.h>
+#include "indicator.hpp"
 
-#include "indicator.h"
-
-namespace Miffles {
+namespace miffles {
 
 
     //******************************************************************
@@ -23,31 +21,28 @@ namespace Miffles {
     //  given length.
     //
     //******************************************************************
-    class Basic_Needle_Indicator : public Indicator {
+    class basic_needle_indicator_t : public indicator_t {
     public:
         double m_length;
         double m_thick;
         
     public:
-        Basic_Needle_Indicator( char const *_name );
+        basic_needle_indicator_t( char const *_name );
         
-        virtual bool draw( const Midget::Cairo_Context &cr );
+        virtual bool draw( const midget_t::cairo_context_t &cr );
     };
 
 
     //******************************************************************
     //
     //******************************************************************
-    class Basic_Pointer_Indicator : public Indicator {
+    class basic_pointer_indicator_t : public indicator_t {
     public:
         double m_thick;
 
     public:
-        Basic_Pointer_Indicator( char const *_name );
+        basic_pointer_indicator_t( char const *_name );
 
-        virtual bool draw( const Midget::Cairo_Context &cr );
+        virtual bool draw( const midget_t::cairo_context_t &cr );
     };
 }
-
-
-#endif /*__MIFFLES_INDICATORS_H__*/

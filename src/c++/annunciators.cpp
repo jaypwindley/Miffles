@@ -7,17 +7,16 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "annunciators.h"
-#include "macros.h"
+#include "annunciators.hpp"
+#include "macros.hpp"
 
-Miffles::Basic_Lightbulb_Annunciator::Basic_Lightbulb_Annunciator( char const *_name ) :
-    Miffles::Annunciator( _name )
+miffles::basic_lightbulb_annunciator_t::basic_lightbulb_annunciator_t( char const *_name ) :
+    miffles::annunciator_t( _name )
 {
-    /*EMPTY*/
 }
 
 bool
-Miffles::Basic_Lightbulb_Annunciator::draw( const Cairo_Context &cr )
+miffles::basic_lightbulb_annunciator_t::draw( const cairo_context_t &cr )
 {
     cr->arc( 0, 0, 20, 0, 2 * PI );
     cr->close_path();

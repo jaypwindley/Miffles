@@ -1,28 +1,25 @@
-
-#ifndef __MIFFLES_DISCRETE_H__
-#define __MIFFLES_DISCRETE_H__
+#pragma once
 
 #include <string>
 #include <vector>
+#include "midget.hpp"
+#include "frame.hpp"
 
-#include "midget.h"
-#include "frame.h"
+namespace miffles {
 
-namespace Miffles {
-
-    class Discrete : public Midget
+    class discrete_t : public midget_t
     {
     public:
-        typedef std::vector<std::string> State_List;
+        typedef std::vector<std::string> state_list_t;
 
     public:
-        State_List      m_states;
+        state_list_t    m_states;
         int             m_state;
         bool            m_is_circular;
         
     public:
-        Discrete( char const *_name );
-        virtual ~Discrete() {}
+        discrete_t( char const *_name );
+        virtual ~discrete_t() {}
 
         void add_state( char const *state );
         void set( char const *state );
@@ -35,5 +32,3 @@ namespace Miffles {
     };
     
 }
-
-#endif /*__MIFFLES_DISCRETE_H__*/

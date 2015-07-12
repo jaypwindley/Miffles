@@ -7,11 +7,9 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_FIELD_H__
-#define __MIFFLES_FIELD_H__
+#pragma once
 
-
-namespace Miffles {
+namespace miffles {
 
 
     //******************************************************************
@@ -22,7 +20,7 @@ namespace Miffles {
     //   extent of the Field.
     //
     //******************************************************************
-    class Field {
+    class field_t {
 
     public:
         double          m_origin;
@@ -30,14 +28,14 @@ namespace Miffles {
         bool            m_has_peg;
         
     public:        
-        Field( double _origin, double _extent ) :
+        field_t( double _origin, double _extent ) :
             m_origin( _origin ),
             m_extent( _extent ),
             m_has_peg( false )
         {
         }
         
-        virtual ~Field()
+        virtual ~field_t()
         {
         }
     };
@@ -50,20 +48,20 @@ namespace Miffles {
     //   where measurements are represented along a line.
     //
     //******************************************************************
-    class Linear_Field : public Field {
+    class linear_field_t : public field_t {
         
     public:        
-        enum Orientation { VERTICAL, HORIZONTAL };
+        enum orientation_t { VERTICAL, HORIZONTAL };
 
     public:
-        enum Orientation m_orientation;
+        enum orientation_t m_orientation;
 
     public:
         
-        Linear_Field( double _origin,
-                      double _extent,
-                      enum Orientation _orientation ) :
-            Field( _origin, _extent ),
+        linear_field_t( double _origin,
+                        double _extent,
+                        enum orientation_t _orientation ) :
+            field_t( _origin, _extent ),
             m_orientation( _orientation )
         {
         }
@@ -82,20 +80,18 @@ namespace Miffles {
     //   beyond m_rads_origin + m_extent.  If false, bugs and indicators
     //   will render beyond that limit, extrapolated from the scale.
     //
-    class Radial_Field : public Field {
+    class radial_field_t : public field_t {
 
         
     public:
-        Radial_Field( double _rads_origin,
-                      double _rads_extent,
-                      bool   _has_peg = true ) :
-            Field( _rads_origin, _rads_extent )
+        radial_field_t( double _rads_origin,
+                        double _rads_extent,
+                        bool   _has_peg = true ) :
+            field_t( _rads_origin, _rads_extent )
         {
         }
         
         
-        virtual ~Radial_Field() {}
+        virtual ~radial_field_t() {}
     };
 }
-
-#endif /*__MIFFLES_FIELD_H__*/

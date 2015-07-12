@@ -9,32 +9,32 @@
 
 #include <assert.h>
 #include <gtkmm.h>
+#include "tickable.hpp"
+#include "dashboard.hpp"
+#include "frame.hpp"
 
-#include "tickable.h"
-#include "dashboard.h"
-#include "frame.h"
-
-const unsigned int Miffles::Tickable::DEFAULT_HERTZ = 100;
+const unsigned int miffles::tickable_t::DEFAULT_HERTZ = 100;
 
 
-Miffles::Tickable_Czar::Tickable_Czar( Miffles::Dashboard *_dashboard ) :
+miffles::tickable_czar_t::tickable_czar_t( miffles::dashboard_t *_dashboard ) :
     m_dashboard( _dashboard )
 {   
     assert( m_dashboard );
 }
 
 
-void Miffles::Tickable_Czar::add( Miffles::Tickable *t, Miffles::Frame *f, bool defer )
+void miffles::tickable_czar_t::add( miffles::tickable_t *t,
+                                    miffles::frame_t *f, bool defer )
 {
     assert( t );
-    (*this)[ t->m_hertz ].push_back( Tickable_List_Element( t, f ) );
+    (*this)[ t->m_hertz ].push_back( tickable_list_element_t( t, f ) );
     if ( ! defer ) link_timers();
 }   
 
 
-void Miffles::Tickable_Czar::link_timers( void )
+void miffles::tickable_czar_t::link_timers( void )
 {
-    // The iterator is decomposed into a tuple ( Hz, Tickable *).
+    // The iterator is decomposed into a tuple ( Hz, tickable_t *).
     for ( auto i : *this ) {
 
         // This is how Glib abstracts callables.  Be sure to pass
@@ -42,7 +42,7 @@ void Miffles::Tickable_Czar::link_timers( void )
         //
         auto slot =
             sigc::bind( sigc::mem_fun( *this,
-                                       &Tickable_Czar::on_timer ),
+                                       &tickable_czar_t::on_timer ),
                         i.second );
 
         // Timer intervals are specifid in Hz, and Glib wants the
@@ -53,7 +53,7 @@ void Miffles::Tickable_Czar::link_timers( void )
 }
 
 
-bool Miffles::Tickable_Czar::on_timer( Tickable_List &me )
+bool miffles::tickable_czar_t::on_timer( tickable_list_t &me )
 {
     for ( auto i : me ) {
         if ( i.first->tick() ) {

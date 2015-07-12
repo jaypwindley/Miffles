@@ -8,19 +8,18 @@
 // -----------------------------------------------------------------------
 
 #include <gdkmm/pixbuf.h>
-#include "background.h"
-#include "frame.h"
+#include "background.hpp"
+#include "frame.hpp"
 
-Miffles::Color_Background::Color_Background( char const *_name,
-                                             Miffles::Color _color ) :
-    Midget( _name ),
+miffles::color_background_t::color_background_t( char const *_name,
+                                                 miffles::color_t _color ) :
+    midget_t( _name ),
     m_color( _color )
 {
-    /*EMPTY*/
 }
 
 
-bool Miffles::Color_Background::draw( const Midget::Cairo_Context &cr )
+bool miffles::color_background_t::draw( const midget_t::cairo_context_t &cr )
 {
     cr->set_source_rgba( COLOR_SPEC( m_color ) );
     cr->rectangle( -100, -100, 200, 200 );
@@ -29,15 +28,15 @@ bool Miffles::Color_Background::draw( const Midget::Cairo_Context &cr )
 }
 
 
-Miffles::Image_Background::Image_Background( char const *_name,
-                                             std::string file_name ) :
-    Midget( _name )
+miffles::image_background_t::image_background_t( char const *_name,
+                                                 const std::string &file_name ) :
+    midget_t( _name )
 {
     m_pixbuf = Gdk::Pixbuf::create_from_file( file_name );
 }
 
 
-bool Miffles::Image_Background::draw( const Midget::Cairo_Context &cr )
+bool miffles::image_background_t::draw( const midget_t::cairo_context_t &cr )
 {
     cr->save();
 

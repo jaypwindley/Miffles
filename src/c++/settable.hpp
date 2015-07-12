@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              settable.h
+//  File:              settable.hpp
 //  Description:       Miffles automatic Settable object
 //  Author:            Jay Windley <jwindley>
 //  Created:           Tue Apr  7 09:25:27 2015
@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_SETTABLE_H__
-#define __MIFFLES_SETTABLE_H__
+#pragma once
 
 #include <string>
 #include <list>
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
@@ -24,10 +23,10 @@ namespace Miffles {
     //  channel.
     //
     //******************************************************************
-    class Settable {
+    class settable_t {
 
     public:
-        virtual ~Settable() {}
+        virtual ~settable_t() {}
 
         //--------------------------------------------------------------
         // Listen on a channel.  The channel demultiplexer will call the
@@ -52,7 +51,5 @@ namespace Miffles {
         virtual void set( double value     );
     };
 
-    typedef std::list<Settable *> Settable_List;
+    typedef std::list<settable_t *> settable_list_t;
 }
-
-#endif /*__MIFFLES_SETTABLE_H__*/

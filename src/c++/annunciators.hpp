@@ -1,20 +1,17 @@
-#ifndef __MIFFLES_ANNUNCIATORS_H__
-#define __MIFFLES_ANNUNCIATORS_H__
+#pragma once
 
-#include "annunciator.h"
+#include "annunciator.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Basic_Lightbulb_Annunciator : public Annunciator {
+    class basic_lightbulb_annunciator_t : public annunciator_t {
 
     public:
-        Basic_Lightbulb_Annunciator( char const *_name );
-        virtual ~Basic_Lightbulb_Annunciator() {}
+        basic_lightbulb_annunciator_t( char const *_name );
+        virtual ~basic_lightbulb_annunciator_t() {}
 
-        virtual bool draw( const Cairo_Context &cr );
+        virtual bool draw( const cairo_context_t &cr );
 
     };
     
 }
-
-#endif /*__MIFFLES_ANNUNCIATORS_H__*/

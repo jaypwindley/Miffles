@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              readout.h
+//  File:              readout.hpp
 //  Description:       Miffles numerical readout
 //  Author:            Jay Windley <jwindley>
 //  Created:           Fri Apr 10 13:03:14 2015
@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_READOUT_H__
-#define __MIFFLES_READOUT_H__
+#pragma once
 
-#include "label.h"
-#include "settable.h"
+#include "label.hpp"
+#include "settable.hpp"
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
@@ -21,18 +20,16 @@ namespace Miffles {
     //  measurement.
     //
     //******************************************************************
-    class Readout : public Label, public Settable {
+    class readout_t : public label_t, public settable_t {
     public:
         // XXX Figure out the best way to make this sweepable.
         // XXX Label should have an anchor.
         double m_value;
     public:
-        Readout( const char *_name );
-        virtual ~Readout() {}
+        readout_t( const char *_name );
+        virtual ~readout_t() {}
         virtual void set( double _value ) { m_value = _value; }
-        virtual bool draw( const Cairo_Context &cr );
+        virtual bool draw( const cairo_context_t &cr );
     };
 
 }
-
-#endif /*__MIFFLES_READOUT_H__*/

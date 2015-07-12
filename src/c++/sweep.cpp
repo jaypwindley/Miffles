@@ -8,19 +8,18 @@
 // -----------------------------------------------------------------------
 
 #include <math.h>
-#include "sweep.h"
+#include "sweep.hpp"
 
-Miffles::Sweep::Sweep( double _rate ) :
-    Tickable(),
+miffles::sweep_t::sweep_t( double _rate ) :
+    tickable_t(),
     m_rate( _rate / double( m_hertz ) ),
     m_setpoint( 0.0 ),
     m_at( 0.0 )
 {
-    /*EMPTY*/
 }
 
 
-bool Miffles::Sweep::tick( void )
+bool miffles::sweep_t::tick( void )
 {
     if ( par() ) return false;
 

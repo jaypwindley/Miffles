@@ -7,16 +7,15 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "readout.h"
+#include "readout.hpp"
 
-Miffles::Readout::Readout( char const *_name ) :
-    Label( _name ),
+miffles::readout_t::readout_t( char const *_name ) :
+    label_t( _name ),
     m_value( 0 )
 {
-    /*EMPTY*/
 }
 
-bool Miffles::Readout::draw( const Midget::Cairo_Context &cr )
+bool miffles::readout_t::draw( const midget_t::cairo_context_t &cr )
 {
     return true;
 }

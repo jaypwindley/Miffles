@@ -7,39 +7,36 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "meter.h"
-#include "field.h"
+#include "meter.hpp"
+#include "field.hpp"
 
 
-Miffles::Meter::Meter( char const *_name ) :
-    Frame( _name ),
+miffles::meter_t::meter_t( char const *_name ) :
+    frame_t( _name ),
     m_field( NULL )
 {
-    /*EMPTY*/
 }
 
 
-Miffles::Linear_Meter::Linear_Meter( char const *_name ) :
-    Meter( _name )
+miffles::linear_meter_t::linear_meter_t( char const *_name ) :
+    meter_t( _name )
 {
-    /*EMPTY*/
 }
 
 
-void Miffles::Linear_Meter::set_field( Miffles::Linear_Field *f )
+void miffles::linear_meter_t::set_field( miffles::linear_field_t *f )
 {
     m_field = f;
 }
 
 
-Miffles::Radial_Meter::Radial_Meter( char const * _name ) :
-    Meter( _name )
+miffles::radial_meter_t::radial_meter_t( char const * _name ) :
+    meter_t( _name )
 {
-    /*EMPTY*/
 }
 
 
-void Miffles::Radial_Meter::set_field( Miffles::Radial_Field *f )
+void miffles::radial_meter_t::set_field( miffles::radial_field_t *f )
 {
     m_field = f;
 }

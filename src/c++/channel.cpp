@@ -11,13 +11,13 @@
 #include <string>
 #include <ctype.h>
 #include <stdio.h>
-#include "channel.h"
+#include "channel.hpp"
 
-Miffles::Token_List
-Miffles::WS_Channel_Decoder::parse( std::string &data )
+miffles::token_list_t
+miffles::ws_channel_decoder_t::parse( std::string &data )
 {
-    const std::string delim = " \t\n";
-    Token_List tokens;
+    static const std::string delim = " \t\n";
+    token_list_t tokens;
 
     // Tokenize input string according to white space.
     std::string::size_type lpos = data.find_first_not_of( delim, 0 );
@@ -31,7 +31,7 @@ Miffles::WS_Channel_Decoder::parse( std::string &data )
 }
 
 
-bool Miffles::is_bool( const std::string &val )
+bool miffles::is_bool( const std::string &val )
 {
     std::string s = val;
     std::transform( s.begin(), s.end(), s.begin(), ::tolower );
@@ -45,13 +45,13 @@ bool Miffles::is_bool( const std::string &val )
 }
 
 
-bool Miffles::is_string( const std::string &val )
+bool miffles::is_string( const std::string &val )
 {
     return true;
 }
 
 
-bool Miffles::is_num( const std::string &val )
+bool miffles::is_num( const std::string &val )
 {
     for ( auto ch : val ) {
         if ( ch == '.' )       continue;
@@ -64,7 +64,7 @@ bool Miffles::is_num( const std::string &val )
 }
 
 
-bool Miffles::to_bool( const std::string &val )
+bool miffles::to_bool( const std::string &val )
 {
     std::string s = val;
     std::transform( s.begin(), s.end(), s.begin(), ::tolower );
@@ -76,7 +76,7 @@ bool Miffles::to_bool( const std::string &val )
 }
 
 
-double Miffles::to_num( const std::string &val )
+double miffles::to_num( const std::string &val )
 {
     double num;
     if ( sscanf( val.c_str(), "%lf", &num ) != 1 ) {

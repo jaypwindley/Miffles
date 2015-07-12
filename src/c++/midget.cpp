@@ -7,21 +7,20 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "midget.h"
+#include "midget.hpp"
 
 
-Miffles::Midget::Midget( char const *_name ) :
+miffles::midget_t::midget_t( char const *_name ) :
     m_name( std::string( _name ) ),
     m_frame( NULL )
 {
-    /*EMPTY*/
 }
 
 
-Miffles::Midget_List::iterator
-Miffles::Midget_List::find( std::string &name )
+miffles::midget_list_t::iterator
+miffles::midget_list_t::find( std::string &name )
 {
-    Miffles::Midget_List::iterator i;
+    miffles::midget_list_t::iterator i;
     for ( auto i : *this ) {
         if ( i->m_name == name ) break;
     }

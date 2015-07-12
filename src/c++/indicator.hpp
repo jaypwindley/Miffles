@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              indicator.h
+//  File:              indicator.hpp
 //  Description:       Miffles Bugs, Marks, and Indicators
 //  Author:            Jay Windley <jwindley>
 //  Created:           Mon Mar 30 23:53:06 2015
@@ -7,17 +7,14 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_INDICATOR_H__
-#define __MIFFLES_INDICATOR_H__
-
 #include <string>
-#include "midget.h"
-#include "settable.h"
+#include "midget.hpp"
+#include "settable.hpp"
 
-namespace Miffles {
+namespace miffles {
 
-    class Scale;
-    class Sweep;
+    class scale_t;
+    class sweep_t;
 
     //******************************************************************
     //
@@ -27,11 +24,11 @@ namespace Miffles {
     //   point that is arbitrarily defined is a Bug.
     //
     //******************************************************************
-    class Mark : public Midget, public Settable {
+    class mark_t : public midget_t, public settable_t {
 
     public:
-        Scale           *m_scale;
-        Sweep           *m_sweep;
+        scale_t         *m_scale;
+        sweep_t         *m_sweep;
         
     public:
 
@@ -40,8 +37,8 @@ namespace Miffles {
         // memory for _sweep.
         //
         
-        Mark( char const *_name );
-        virtual ~Mark() {}
+        mark_t( char const *_name );
+        virtual ~mark_t() {}
 
 
         //--------------------------------------------------------------
@@ -54,7 +51,7 @@ namespace Miffles {
         // Return the current value of the Mark in Scale coordinates,
         // not Domain coordinates.
         //
-        double fraction( void );
+        double fraction( void ) const;
 
     };
 
@@ -69,7 +66,7 @@ namespace Miffles {
     //
     //******************************************************************
     //
-    typedef Mark Indicator;
+    typedef mark_t indicator_t;
 
 
     
@@ -81,7 +78,5 @@ namespace Miffles {
     //
     //******************************************************************
     //
-    typedef Mark Bug;    
+    typedef mark_t bug_t;    
 }
-
-#endif /*__MIFFLES_INDICATOR_H__*/

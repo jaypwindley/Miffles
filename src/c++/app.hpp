@@ -7,19 +7,18 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_APP_H__
-#define __MIFFLES_APP_H__
+#pragma once
 
 #include <assert.h>
 #include <gtkmm.h>
 #include <string>
 
 
-namespace Miffles {
+namespace miffles {
 
-    class Tickable_Czar;
-    class Dashboard;
-    class Input_Demultiplexer;
+    class tickable_czar_t;
+    class dashboard_t;
+    class input_demultiplexer_t;
 
     //******************************************************************
     //
@@ -28,27 +27,27 @@ namespace Miffles {
     //  according to the toolkit.
     //
     //******************************************************************
-    class App {
+    class app_t {
 
     public:
         static const char                      *domain;
 
-        Dashboard                              *m_dashboard;
-        Tickable_Czar                          *m_tickables;
-        Input_Demultiplexer                    *m_demux;
+        dashboard_t                            *m_dashboard;
+        tickable_czar_t                        *m_tickables;
+        input_demultiplexer_t                  *m_demux;
 
     protected:
         Glib::RefPtr<Gtk::Application>          m_gtk_app;
         Gtk::Window                            *m_window;
 
     private:
-        static Miffles::App                    *m_me;
+        static miffles::app_t                  *m_me;
 
     private:
-        App( int argc, char **argv, char const *title );
+        app_t( int argc, char **argv, char const *title );
 
     public:
-        virtual ~App();
+        virtual ~app_t();
 
 
         //--------------------------------------------------------------
@@ -60,7 +59,7 @@ namespace Miffles {
         //--------------------------------------------------------------
         // Retrieve the singleton App instance.
         //
-        static Miffles::App *app( void );
+        static miffles::app_t *app( void );
 
         //--------------------------------------------------------------
         // Add a file descriptor or a named file as an input source to
@@ -82,5 +81,3 @@ namespace Miffles {
     };
 
 }
-
-#endif /*__MIFFLES_APP_H__*/

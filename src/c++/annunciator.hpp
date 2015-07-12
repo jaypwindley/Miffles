@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              annunciator.h
+//  File:              annunciator.hpp
 //  Description:       Miffles Annunciator, a simple indicator "light"
 //  Author:            Jay Windley <jwindley>
 //  Created:           Sun Apr  5 21:47:40 2015
@@ -7,13 +7,12 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_ANNUNCIATOR_H__
-#define __MIFFLES_ANNUNCIATOR_H__
+#pragma once
 
-#include "midget.h"
-#include "settable.h"
+#include "midget.hpp"
+#include "settable.hpp"
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
@@ -22,18 +21,18 @@ namespace Miffles {
     //  off.
     //
     //******************************************************************
-    class Annunciator : public Midget, public Settable {
+    class annunciator_t : public midget_t, public settable_t {
 
     public:
         bool            m_is_on;
         
     public:
-        Annunciator( char const *_name );
-        virtual ~Annunciator() {}
+        annunciator_t( char const *_name );
+        virtual ~annunciator_t() {}
 
         virtual void set( bool is_on );
         
-        virtual bool draw( const Cairo_Context &cr );
+        virtual bool draw( const cairo_context_t &cr );
         
     };
 
@@ -41,4 +40,3 @@ namespace Miffles {
     
 }
 
-#endif /*__MIFFLES_ANNUNCIATOR_H__*/

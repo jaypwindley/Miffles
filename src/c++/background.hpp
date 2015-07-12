@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  File:              background.h
+//  File:              background.hpp
 //  Description:       Miffles Frame backgrounds
 //  Author:            Jay Windley <jwindley>
 //  Created:           Fri Apr 10 12:57:46 2015
@@ -7,28 +7,27 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#ifndef __MIFFLES_BACKGROUND_H__
-#define __MIFFLES_BACKGROUND_H__
+#pragma once
 
 #include <string>
-#include "midget.h"
-#include "types.h"
+#include "midget.hpp"
+#include "types.hpp"
 
-namespace Miffles {
+namespace miffles {
 
     //******************************************************************
     //
     //  Background that fills with a constant color, default black.
     //
     //******************************************************************
-    class Color_Background : public Midget {
+    class color_background_t : public midget_t {
     public:
-        Miffles::Color m_color;
+        miffles::color_t m_color;
     public:
-        Color_Background( char const *_name,
-                          Color _color = Miffles::Color::Black );
-        virtual ~Color_Background() {}
-        virtual bool draw( const Midget::Cairo_Context &cr );
+        color_background_t( char const *_name,
+                            color_t _color = miffles::color_t::black );
+        virtual ~color_background_t() {}
+        virtual bool draw( const midget_t::cairo_context_t &cr );
     };
 
 
@@ -37,14 +36,12 @@ namespace Miffles {
     //  Background that fills with an image.
     //
     //******************************************************************
-    class Image_Background : public Midget {
+    class image_background_t : public midget_t {
     public:
         Glib::RefPtr< Gdk::Pixbuf > m_pixbuf;
     public:
-        Image_Background( char const *_name, std::string file_name );
-        virtual ~Image_Background() {}
-        virtual bool draw( const Midget::Cairo_Context &cr );
+        image_background_t( char const *_name, const std::string &file_name );
+        virtual ~image_background_t() {}
+        virtual bool draw( const midget_t::cairo_context_t &cr );
     };
 }
-
-#endif /*__MIFFLES_BACKGROUND_H__*/

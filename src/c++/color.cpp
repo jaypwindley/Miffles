@@ -2,18 +2,18 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <string.h>
-#include "types.h"
+#include "types.hpp"
 
-Miffles::Color::RGB_Map Miffles::Color::m_RGB_txt;
+miffles::color_t::RGB_map_t miffles::color_t::m_RGB_txt;
 
-const Miffles::Color Miffles::Color::Black( 0, 0, 0 );
-const Miffles::Color Miffles::Color::White( 1, 1, 1 );
-const Miffles::Color Miffles::Color::Red( 1, 0, 0 );
-const Miffles::Color Miffles::Color::Green( 0, 1, 0 );
-const Miffles::Color Miffles::Color::Blue( 0, 0, 1 );
+const miffles::color_t miffles::color_t::black( 0, 0, 0 );
+const miffles::color_t miffles::color_t::white( 1, 1, 1 );
+const miffles::color_t miffles::color_t::red( 1, 0, 0 );
+const miffles::color_t miffles::color_t::green( 0, 1, 0 );
+const miffles::color_t miffles::color_t::blue( 0, 0, 1 );
 
 
-Miffles::Color::Color( char const *_color, const double a ) {
+miffles::color_t::color_t( char const *_color, const double a ) {
     int r, g, b;
 
     // Lazy-load the list.
@@ -24,13 +24,13 @@ Miffles::Color::Color( char const *_color, const double a ) {
     std::tie( r, g, b ) = m_RGB_txt[ name ];
 
     // Normalize the values and create the color.
-    push_back( (double) r / 255.0 );
-    push_back( (double) g / 255.0 );
-    push_back( (double) b / 255.0 );
-    push_back( a );
+    m_r = (double) r / 255.0;
+    m_g = (double) g / 255.0;
+    m_b = (double) b / 255.0;
+    m_a = a;
 }
 
-void Miffles::Color::load_RGB_txt( void )
+void miffles::color_t::load_RGB_txt( void )
 {
     static const char path[] = "/etc/X11/rgb.txt";    
     static const size_t BUFSIZE = 128;

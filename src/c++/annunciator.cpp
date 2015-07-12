@@ -1,20 +1,20 @@
-#include "annunciator.h"
-#include "frame.h"
+#include "annunciator.hpp"
+#include "frame.hpp"
 
-Miffles::Annunciator::Annunciator( char const *_name ) :
-    Midget( _name )
+miffles::annunciator_t::annunciator_t( char const *_name ) :
+    midget_t( _name )
 {
 }
 
 
-void Miffles::Annunciator::set( bool _is_on )
+void miffles::annunciator_t::set( bool _is_on )
 {
     m_is_on = _is_on;
     m_frame->redraw();
 }
 
 
-bool Miffles::Annunciator::draw( const Cairo_Context &cr )
+bool miffles::annunciator_t::draw( const cairo_context_t &cr )
 {
     return true;
 }

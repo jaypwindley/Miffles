@@ -7,19 +7,18 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "label.h"
-#include "text.h"
+#include "label.hpp"
+#include "text.hpp"
 
-Miffles::Label::Label( char const *_name ) :
-    Midget( _name ),
+miffles::label_t::label_t( char const *_name ) :
+    midget_t( _name ),
     m_text( "" ),
-    m_style( new Text_Style() )
+    m_style( new text_style_t() )
 {
-    /*EMPTY*/
 }
 
 
-bool Miffles::Label::draw( const Cairo_Context &cr )
+bool miffles::label_t::draw( const cairo_context_t &cr )
 {
     render_text( cr, m_style, m_origin, m_text );
 }
@@ -30,9 +29,9 @@ bool Miffles::Label::draw( const Cairo_Context &cr )
 
 
 
-void Miffles::render_text( const Midget::Cairo_Context &cr,
-                           Miffles::Text_Style *style,
-                           Point &at,
+void miffles::render_text( const midget_t::cairo_context_t &cr,
+                           miffles::text_style_t *style,
+                           point_t &at,
                            std::string &s )
 {
     assert( style );
@@ -40,18 +39,18 @@ void Miffles::render_text( const Midget::Cairo_Context &cr,
     // Adjust rendering point based on justification.  Remember to scale
     // the font first before measuring the text extents.
     //
-    Point offset = at;
+    point_t offset = at;
     cr->set_font_size( style->m_font_size );
     ::Cairo::TextExtents extents;
     cr->get_text_extents( s, extents );
-    if ( style->m_h_justify == Miffles::Text_Style::CENTER ) {
+    if ( style->m_h_justify == miffles::text_style_t::CENTER ) {
         offset.x( offset.x() - extents.width / 2 );
-    } else if ( style->m_h_justify == Miffles::Text_Style::RIGHT ) {
+    } else if ( style->m_h_justify == miffles::text_style_t::RIGHT ) {
         offset.x( offset.x() - extents.width );
     }
-    if ( style->m_v_justify == Miffles::Text_Style::MIDDLE ) {
+    if ( style->m_v_justify == miffles::text_style_t::MIDDLE ) {
         offset.y( offset.y() - extents.height / 2 );
-    } else if ( style->m_v_justify == Miffles::Text_Style::TOP ) {
+    } else if ( style->m_v_justify == miffles::text_style_t::TOP ) {
         offset.y( offset.y() - extents.height );
     }
 

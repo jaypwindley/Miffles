@@ -1,34 +1,33 @@
 #include <assert.h>
-#include "input_demux.h"
-#include "channel.h"
+#include "input_demux.hpp"
+#include "channel.hpp"
 
-Miffles::Input_Demultiplexer::Input_Demultiplexer() :
+miffles::input_demultiplexer_t::input_demultiplexer_t() :
     m_decoder( NULL )
 {
-    /*EMPTY*/
 }
 
 
 void
-Miffles::Input_Demultiplexer::register_channel( std::string channel,
-                                                Type type )
+miffles::input_demultiplexer_t::register_channel( std::string channel,
+                                                  type_t type )
 {
     m_types[ channel ] = type;
 }
 
 
 void
-Miffles::Input_Demultiplexer::listen( std::string channel,
-                                      Settable *settable )
+miffles::input_demultiplexer_t::listen( std::string channel,
+                                        settable_t *settable )
 {
     assert( settable );
     m_channels[ channel ].push_back( settable );
 }
 
-void Miffles::Input_Demultiplexer::dispatch( std::string input )
+void miffles::input_demultiplexer_t::dispatch( std::string input )
 {
     assert( m_decoder );
-    Token_List tokens = m_decoder->parse( input );
+    token_list_t tokens = m_decoder->parse( input );
 
     double      val_double;
     bool        val_bool;
@@ -37,18 +36,18 @@ void Miffles::Input_Demultiplexer::dispatch( std::string input )
     if ( tokens.size() == 0 ) return;
     
     // Look up the data type for this channel information.
-    Miffles::Type t = m_types[ tokens[ 0 ] ];
+    miffles::type_t t = m_types[ tokens[ 0 ] ];
     switch( t ) {
-    case Miffles::Type::UNKNOWN:
+    case miffles::type_t::UNKNOWN:
         // Infer type.
         break;
-    case Miffles::Type::NUM:
-        val_double = Miffles::to_num( tokens[ 1 ] );
+    case miffles::type_t::NUM:
+        val_double = miffles::to_num( tokens[ 1 ] );
         break;
-    case Miffles::Type::BOOL:
-        val_bool = Miffles::to_bool( tokens[ 1 ] );
+    case miffles::type_t::BOOL:
+        val_bool = miffles::to_bool( tokens[ 1 ] );
         break;
-    case Miffles::Type::STRING:
+    case miffles::type_t::STRING:
         val_str = tokens[ 1 ];
         break;
     }
@@ -58,13 +57,13 @@ void Miffles::Input_Demultiplexer::dispatch( std::string input )
         // feel dirty.  Fix this.
         //
         switch( t ) {
-        case Miffles::Type::NUM:
+        case miffles::type_t::NUM:
             i->set( val_double );
             break;
-        case Miffles::Type::BOOL:
+        case miffles::type_t::BOOL:
             i->set( val_bool );
             break;
-        case Miffles::Type::STRING:
+        case miffles::type_t::STRING:
             i->set( val_str );
             break;
         }

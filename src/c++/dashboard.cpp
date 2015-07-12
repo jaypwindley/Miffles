@@ -7,39 +7,39 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "dashboard.h"
-#include "types.h"
-#include "frame.h"
+#include "dashboard.hpp"
+#include "types.hpp"
+#include "frame.hpp"
 
 
-Miffles::Dashboard::Dashboard() :
-    m_frames( new Frame_List() )
+miffles::dashboard_t::dashboard_t() :
+    m_frames( new frame_list_t() )
 {
 }
 
 
-Miffles::Dashboard::~Dashboard()
+miffles::dashboard_t::~dashboard_t()
 {
     delete m_frames;
 }
 
 
-void Miffles::Dashboard::add( Point _origin, Frame *f )
+void miffles::dashboard_t::add( point_t _origin, frame_t *f )
 {
     f->m_origin = _origin;
     m_frames->push_back( f );
 }
 
 
-Miffles::Extent Miffles::Dashboard::extent( void ) {
-    Extent total( 0, 0 );
+miffles::extent_t miffles::dashboard_t::extent( void ) {
+    extent_t total( 0, 0 );
     for ( auto i = m_frames->begin(); i != m_frames->end(); ++i ) {
 
         // For each Frame, determine its Extent from the Dashboard
         // origin to the Frame's extent, then expand the total Extent if
         // needed.
         //
-        Extent e = (*i)->m_origin + (*i)->m_size;
+        extent_t e = (*i)->m_origin + (*i)->m_size;
         if ( e.width() > total.width() )
             total.width( e.width() );
         if ( e.height() > total.height() )

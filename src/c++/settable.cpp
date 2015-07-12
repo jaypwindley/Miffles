@@ -7,31 +7,31 @@
 //                     All rights reserved.
 // -----------------------------------------------------------------------
 
-#include "settable.h"
-#include "app.h"
-#include "input_demux.h"
+#include "settable.hpp"
+#include "app.hpp"
+#include "input_demux.hpp"
 
 // Unless these are overridden in subclasses, print out something if
 // they are called.
 //
-void Miffles::Settable::set( std::string &val ) {
-    fprintf( stderr, "Miffles::Settable child does not understand std::string\n" );
+void miffles::settable_t::set( std::string &val ) {
+    fprintf( stderr, "miffles::settable_t does not understand std::string\n" );
 }
 
-void Miffles::Settable::set( void *thing ) {
-    fprintf( stderr, "Miffles::Settable child does not understand void *\n" );
+void miffles::settable_t::set( void *thing ) {
+    fprintf( stderr, "miffles::settable_t does not understand void *\n" );
 }
 
-void Miffles::Settable::set( bool is_on ) {
-    fprintf( stderr, "Miffles::Settable child does not understand bool\n" );
+void miffles::settable_t::set( bool is_on ) {
+    fprintf( stderr, "miffles::settable does not understand bool\n" );
 }
 
-void Miffles::Settable::set( double value ) {
-    fprintf( stderr, "Miffles::Setting child does not understand double\n" );
+void miffles::settable_t::set( double value ) {
+    fprintf( stderr, "miffles::setting_t does not understand double\n" );
 }
 
 
-void Miffles::Settable::listen( const std::string &channel )
+void miffles::settable_t::listen( const std::string &channel )
 {    
-    App::app()->m_demux->listen( channel, this );
+    app_t::app()->m_demux->listen( channel, this );
 }
